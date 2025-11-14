@@ -3,7 +3,7 @@ import AppError from "../models/AppError.js"
 import User from "../models/User.js"
 import PostCategory from "../models/PostCategory.js"
 import Category from "../models/Category.js"
-export const getPostById = async (req, res) => {
+export const getPostById = async (req, res, next) => {
     const { id } = req.params
     try {
         if (isNaN(Number(id))) {
@@ -16,11 +16,7 @@ export const getPostById = async (req, res) => {
         res.status(200).send({ post })
     }
     catch (err) {
-        if (err instanceof AppError) {
-            res.status(err.code).send({ msg: err.message })
-        } else {
-            res.status(500).send({ msg: 'Something went wrong' })
-        }
+       next(err)
     }
 }
 
@@ -29,7 +25,7 @@ export const getAllPosts = async (req, res) => {
     res.status(200).send(posts)
 };
 
-export const postNewPost = async (req, res) => {
+export const postNewPost = async (req, res, next) => {
 
     const { title, content, id, imageURL, categories } = req.body
 
@@ -67,10 +63,6 @@ export const postNewPost = async (req, res) => {
         res.status(201).send({ newPost, categoriesAdded })
     }
     catch (err) {
-        if (err instanceof AppError) {
-            res.status(err.code).send({ msg: err.message })
-        } else {
-            res.status(500).send({ msg: 'Something went wrong' })
-        }
+        next(err)
     }
 }
