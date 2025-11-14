@@ -20,3 +20,7 @@ export const getPostById = async (req, res) => {
         }
     }
 }
+export const getAllPosts = async (req, res) => {
+    const posts = await Post.findAll();
+    res.status(200).send(posts)    
+};
