@@ -1,10 +1,10 @@
 -- Seed Post 
-INSERT INTO POST (title, content, user_id)
+INSERT INTO POST (title, content, user_id, created_at)
 VALUES
-('My Weekend In Paris!', 'Me and my family spent a lovely weekend in Paris. Just don''t check my luggage for any Jewels!', 3),
-('Cigarettes and Alcohol', 'Can''t believe we actually got Oasis tickets #NotLookingBackInAnger', 1),
-('Birthday bash', 'Thanks again to everyone for coming to my birthday party', 2),
-('Colin & Call of Duty', 'Spent another weekend in. Played the new COD and bought a Colin the Caterpillar - I think I''ve peaked.', 5);
+('My Weekend In Paris!', 'Me and my family spent a lovely weekend in Paris. Just don''t check my luggage for any Jewels!', 3, '2025-11-14T09:17:15.123Z'),
+('Cigarettes and Alcohol', 'Can''t believe we actually got Oasis tickets #NotLookingBackInAnger', 1, '2024-11-14T09:17:15.123Z'),
+('Birthday bash', 'Thanks again to everyone for coming to my birthday party', 2, '2022-11-14T09:17:15.123Z'),
+('Colin & Call of Duty', 'Spent another weekend in. Played the new COD and bought a Colin the Caterpillar - I think I''ve peaked.', 5, '2023-11-14T09:17:15.123Z');
 
 
 INSERT INTO CATEGORY (name)

@@ -22,12 +22,25 @@ export const getPostById = async (req, res) => {
 }
 export const getAllPosts = async (req, res) => {
     try {
-        const posts = await Post.findAll();
-        console.log(posts.length)
-        if(posts.length === 0) {
-            return res.status(200).send([])
+        const { sort_by } = req.query
+        console.log(sort_by)
+        // if(sort_by) {
+        //     if(sort_by !== 'ASC' && sort_by !== 'DESC'){
+        //         throw new AppError('sort_by must be ASC or DESC', 400)
+        //     }
+        // }
+
+        const validSortBys = ['ASC', 'DESC']
+
+        if(sort_by && !validSortBys.includes(sort_by)){
+             throw new AppError('sort_by must be ASC or DESC', 400)
+        }
+
+        const posts = await Post.findAll(sort_by);
+        if(!posts.length) {
+            return res.status(200).send({posts})
         };
-        res.status(200).send(posts)    
+        res.status(200).send({posts})    
     }
     catch (err) {
         if(err instanceof AppError) {
