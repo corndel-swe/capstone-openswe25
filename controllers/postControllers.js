@@ -21,6 +21,19 @@ export const getPostById = async (req, res) => {
     }
 }
 export const getAllPosts = async (req, res) => {
-    const posts = await Post.findAll();
-    res.status(200).send(posts)    
+    try {
+        const posts = await Post.findAll();
+        console.log(posts.length)
+        if(posts.length === 0) {
+            return res.status(200).send([])
+        };
+        res.status(200).send(posts)    
+    }
+    catch (err) {
+        if(err instanceof AppError) {
+            res.status(err.code).send({ msg:err.message })
+        } else {
+            res.status(500).send({ msg: 'Something went wrong' })
+        }
+    }
 };
