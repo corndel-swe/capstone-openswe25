@@ -8,8 +8,8 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }))
 
-app.use('/posts', postRouter)
-app.use('/users', userRouter)
-app.use('/comments', commentRouter)
+app.use('/post', postRouter)
+app.use('/user', userRouter)
+app.use('/comment', commentRouter)
 
 export default app
