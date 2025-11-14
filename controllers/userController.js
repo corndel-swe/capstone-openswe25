@@ -16,7 +16,7 @@ export const getUsers = async (req, res, next) => {
     }
 }
 
-export const createUser = async (req, res) => {
+export const createUser = async (req, res, next) => {
     try {
         const { username, fullname, email, password_hash, imageURL } = req.body
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
