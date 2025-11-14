@@ -6,7 +6,7 @@ try{
  const users = await User.getAllUsers()
     
  if(!users){
-    throw new AppError('Users not found')
+    throw new AppError('Users not found', 404)
 }
 res.status(200).send(users)
 
