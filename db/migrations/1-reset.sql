@@ -25,13 +25,11 @@ CREATE TABLE IF NOT EXISTS category (
 CREATE TABLE IF NOT EXISTS post (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
-    category_id INTEGER NOT NULL,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
     image_url TEXT NOT NULL DEFAULT 'default-post.png',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
-    FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS comment (
