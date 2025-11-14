@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS post (
     content TEXT NOT NULL,
     image_url TEXT NOT NULL DEFAULT 'default-post.png',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS comment (

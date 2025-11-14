@@ -1,10 +1,10 @@
 -- Seed Post 
-INSERT INTO POST (title, content, user_id, category_id)
+INSERT INTO POST (title, content, user_id)
 VALUES
-('My Weekend In Paris!', 'Me and my family spent a lovely weekend in Paris. Just don''t check my luggage for any Jewels!', 3, 2),
-('Cigarettes and Alcohol', 'Can''t believe we actually got Oasis tickets #NotLookingBackInAnger', 1, 4),
-('Birthday bash', 'Thanks again to everyone for coming to my birthday party', 2, 1),
-('Colin & Call of Duty', 'Spent another weekend in. Played the new COD and bought a Colin the Caterpillar - I think I''ve peaked.', 5, 3);
+('My Weekend In Paris!', 'Me and my family spent a lovely weekend in Paris. Just don''t check my luggage for any Jewels!', 3),
+('Cigarettes and Alcohol', 'Can''t believe we actually got Oasis tickets #NotLookingBackInAnger', 1),
+('Birthday bash', 'Thanks again to everyone for coming to my birthday party', 2),
+('Colin & Call of Duty', 'Spent another weekend in. Played the new COD and bought a Colin the Caterpillar - I think I''ve peaked.', 5);
 
 
 INSERT INTO CATEGORY (name)
@@ -18,10 +18,13 @@ VALUES
 
 INSERT INTO POST_CATEGORY
 VALUES
-(1, 2),
-(2, 4),
-(3, 1),
-(4, 3);
+(1, 1),
+(1, 6),
+(2, 3),
+(3, 3),
+(3, 6),
+(4, 3),
+(4, 4);
 
 
 

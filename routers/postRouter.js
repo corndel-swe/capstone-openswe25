@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { getAllPosts } from "../controllers/postControllers.js";
+import { getPostById, getAllPosts } from "../controllers/postControllers.js";
 
-const productRouter = Router()
+const postRouter = new Router()
 
-productRouter.get('/', getAllPosts)
+postRouter.get('/:id', getPostById)
+postRouter.get('/', getAllPosts)
 
-export default productRouter
+export default postRouter
+
