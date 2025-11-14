@@ -12,8 +12,4 @@ app.use('/posts', postRouter)
 app.use('/users', userRouter)
 app.use('/comments', commentRouter)
 
-app.all('*', function(req, res) {
-  res.status(404).json({"404": "Page not found"})
-})
-
 export default app
