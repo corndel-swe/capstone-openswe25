@@ -10,3 +10,5 @@ class Post {
         return rows;
     }
 }
+
+export default Post
