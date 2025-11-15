@@ -11,16 +11,17 @@ class Post {
         const results = await db.raw(query, [id])
         return results[0]
     }
-    static async findAll(sortBy = 'DESC') {
+    static async findAll(sortBy = 'DESC', userCondidtion) {
         const query = `
         SELECT post.image_url, post.title, user.username, COUNT(post_like.user_id) AS total_likes, post.created_at
         FROM post
         INNER JOIN user ON post.user_id = user.id
         INNER JOIN post_like ON post.id = post_like.post_id
+        
+        
         GROUP BY post.id
         ORDER BY post.created_at 
-        `
-        query += sortBy
+        ` + sortBy;
         const rows = await db.raw(query);
         return rows;
     }

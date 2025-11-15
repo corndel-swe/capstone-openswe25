@@ -12,4 +12,8 @@ app.use('/posts', postRouter)
 app.use('/users', userRouter)
 app.use('/comments', commentRouter)
 
+app.use((req, res, next) => {
+    res.sendStatus(404)
+});
+
 export default app
