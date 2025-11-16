@@ -1,5 +1,6 @@
 import Post from "../models/Post.js"
 import AppError from "../models/AppError.js"
+import User from "../models/User.js"
 export const getPostById = async (req, res) => {
     const { id } = req.params
     try {
@@ -34,19 +35,22 @@ export const getAllPosts = async (req, res) => {
 
         if(sort_by && !validSortBys.includes(sort_by)){
              throw new AppError('sort_by must be ASC or DESC', 400)
-        }
+        };
 
         // USER_ID QUERY
-        // const allUsers = await Post.findAll()
+        const allUsers = await User.getAllUsers()
         // console.log(allUsers)
-        // const validUserIds = allUsers.map(user => user.id)
+        const validUserIds = allUsers.map(user => user.id)
         // console.log(validUserIds)
-        // if(!validUserIds.includes(user_id)){
-        //     throw new AppError('user_id does not exist', 400)
-        // }
-        const userCondidtion = `WHERE user.id = ${user_id}`
-        console.log(userCondidtion)
-        const posts = await Post.findAll(sort_by, userCondidtion);
+        const parsedUserId = parseInt(user_id);
+        console.log(user_id)
+        if(!validUserIds.includes(parsedUserId)){
+            throw new AppError('user_id does not exist', 400)
+        }
+        // SQL injection
+        // const userCondidtion = `WHERE user.id = ${user_id}`
+        // console.log(userCondidtion)
+        const posts = await Post.findAll(sort_by, user_id);
         if(!posts.length) {
             return res.status(200).send({posts})
         };
