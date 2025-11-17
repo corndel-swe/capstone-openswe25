@@ -8,6 +8,14 @@ class Comment {
             WHERE user_id = ?;`, [id])
         return results
     }
+    static async addComment(postId, userId, content) {
+        const query = `
+        INSERT INTO comment (post_id, user_id, content) 
+        VALUES (?, ?, ?)
+        RETURNING *`
+        const results = await db.raw(query, [postId, userId, content])
+        return results
+    }
 }
 
 export default Comment

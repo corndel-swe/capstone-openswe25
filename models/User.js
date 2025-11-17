@@ -5,6 +5,7 @@ class User {
         const results = await db.raw(`SELECT id, username, imageURL FROM user`)
         return results
     }
+
     static async getUserById(id) {
         const results = await db.raw(`
             SELECT username FROM user
@@ -12,7 +13,7 @@ class User {
         return results
     }
 
-    static async createNewUser({username, fullname, email, password_hash, imageURL}){
+    static async createNewUser({ username, fullname, email, password_hash, imageURL }) {
 
         const query = `
         INSERT INTO user
