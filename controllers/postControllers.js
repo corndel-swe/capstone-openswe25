@@ -130,3 +130,10 @@ export const deletePost = async (req, res, next) => {
 
     }
 }
+export const getAddPostPage = async (req,res,next) => {
+    try{
+        res.render('createPost')
+    }catch(err){
+        next(err)
+    }
+}
