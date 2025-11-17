@@ -17,16 +17,26 @@ export const getUsers = async (req, res, next) => {
     }
 }
 
+export const getRegisterPage = async (req, res, next) =>{
+
+    try {
+
+        res.render('register')
+    } catch (err){
+        next(err)
+    }
+}
+
 export const createUser = async (req, res, next) => {
     try {
-        const { username, fullname, email, password, imageURL } = req.body
+        const { username, fullname, email, password, confirm_password, imageURL } = req.body
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
 
 
 
-        if (!username || !fullname || !email || !password || !imageURL) {
+        if (!username || !fullname || !email || !password || !confirm_password || !imageURL) {
             throw new AppError('Missing required fields: Username, full name, email address, password and an image must all be provided', 400)
         }
 
@@ -37,6 +47,10 @@ export const createUser = async (req, res, next) => {
 
         if (!passwordRegex.test(password)) {
             throw new AppError('Password must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 symbol.', 400);
+        }
+
+        if (password !== confirm_password){
+            throw new AppError('Passwords do not match. Try again.', 400)
         }
 
         const saltRounds = 10;
