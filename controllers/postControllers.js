@@ -3,6 +3,8 @@ import AppError from "../models/AppError.js"
 import User from "../models/User.js"
 import PostCategory from "../models/PostCategory.js"
 import Category from "../models/Category.js"
+import PostLike from "../models/PostLike.js"
+
 export const getPostById = async (req, res, next) => {
     const { id } = req.params
     try {
@@ -16,7 +18,7 @@ export const getPostById = async (req, res, next) => {
         res.status(200).send({ post })
     }
     catch (err) {
-       next(err)
+        next(err)
     }
 }
 
@@ -118,5 +120,67 @@ export const postNewPost = async (req, res, next) => {
     }
     catch (err) {
         next(err)
+    }
+}
+
+export const postLike = async (req, res, next) => {
+    const { user } = req.body
+    const { id } = req.params
+
+    try {
+
+        if (!user.id) {
+            throw new AppError('User ID must be provided', 400)
+        }
+
+        if (isNaN(Number(user.id)) || isNaN(Number(id))) {
+            throw new AppError('User ID and Post ID must both be valid numbers', 400)
+        }
+
+        const validUser = await User.getUserById(user.id)
+
+        if (!validUser.length) {
+            throw new AppError('User does not exist', 404)
+        }
+
+        const validPost = await Post.findPostById(id)
+
+        if (!validPost) {
+            throw new AppError('Post does not exist', 404)
+        }
+        await PostLike.addLike(id, user.id)
+        res.status(201).send({ msg: 'Post successfully liked' })
+    }
+    catch (err) {
+        next(err)
+    }
+
+}
+
+export const deletePost = async (req, res, next) => {
+    const { id } = req.params
+
+    try {
+
+        if (isNaN(Number(id))) {
+            throw new AppError('Post ID must be a number', 400)
+        }
+
+        const validPost = await Post.findPostById(id)
+
+        if (!validPost) {
+            throw new AppError('Post does not exist', 404)
+        }
+
+        await Post.deletePost(id)
+
+        res.status(200).send({ msg: 'Post successfully deleted' })
+
+    }
+
+    catch (err) {
+        console.log(err)
+        next(err)
+
     }
 }

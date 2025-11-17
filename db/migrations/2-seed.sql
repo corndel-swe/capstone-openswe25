@@ -30,13 +30,13 @@ VALUES
 
 INSERT INTO USER (username, fullname, email, password_hash)
 VALUES
-('luna_ray','Luna Raymond','luna.ray@example.com','Dk!9v#2sWqP1'),
-('marcota','Marco Tavares','marco.tavares@example.com','Zm4$Lp8!xV2q'),
-('abby_cole','Abigail Cole','abby.cole@example.com','A7!bR9xq#eF2'),
-('soren.k','Soren Kline','soren.k@example.com','Xf3@N8pL7zQw'),
-('nina_park','Nina Park','nina.park@example.com','Pz!6Rm2YcV8d'),
-('jax_holt','Jaxon Holt','jax.holt@example.com','Ht9#Gv2!sK5m'),
-('mari_soto','Marisol Soto','mari.soto@example.com','Qr4$Tn7bWp1L');
+('luna_ray','Luna Raymond','luna.ray@example.com','$2a$10$/.d/7lCYPYf26CtzvhhJluabLG2G4R1YW2At7uT/lfG9F1t7npWB6'),
+('marcota','Marco Tavares','marco.tavares@example.com','$2a$10$S3MrqfJ.cMkNmcgF/JheIu9tRE5DbfseC7OiAi7EIGE98lpufDN6m'),
+('abby_cole','Abigail Cole','abby.cole@example.com','$2a$10$ZCn8J4.7BNEdBNKxlHKl2usp.mXD7gQl84ATc8GOwm4SC/BpwrPbS'),
+('soren.k','Soren Kline','soren.k@example.com','$2a$10$L29g8fSF6Y1cQrUjVRf0weJ3OvUYdYcbBZbNzdcdFtIEDu.ZNv5za'),
+('nina_park','Nina Park','nina.park@example.com','$2a$10$brfdznBjWgEV6.sOJ3jmLedjedfuxNIrwVu.0xh8J7Cul.ZoKHW4m'),
+('jax_holt','Jaxon Holt','jax.holt@example.com','$2a$10$XJLfNy9aYfQgE.cbld2ak.aJ47jhIR2lzyWhmAEn66gmIR8uR/fyK'),
+('mari_soto','Marisol Soto','mari.soto@example.com','$2a$10$Xsjk5lrN.VXe0FGUTvpHlOvPozWkTXBCK6z7sr5tkizCibjM21zjS');
 
 INSERT INTO COMMENT (post_id, user_id, content)
 VALUES 

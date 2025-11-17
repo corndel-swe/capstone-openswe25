@@ -72,6 +72,13 @@ class Post {
         const newPost = await db.raw(query, [title, content, id, imageURL])
         return newPost[0]
     }
+     static async deletePost(id){
+        const query = `
+        DELETE FROM post
+        WHERE id = ?`
+        const deletedPost = await db.raw(query, [id])
+        return deletedPost
+    }
 }
 
 export default Post
