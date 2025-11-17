@@ -1,7 +1,7 @@
 import AppError from "../models/AppError.js"
 import Comment from "../models/Comment.js"
 import Post from "../models/Post.js"
-export const getAllCommentsForPost = async (req, res) => {
+export const getAllCommentsForPost = async (req, res, next) => {
 
     const { id } = req.params
 
@@ -17,11 +17,6 @@ export const getAllCommentsForPost = async (req, res) => {
         res.status(200).send({ comments })
     }
     catch (err) {
-        console.log(err)
-        if (err instanceof AppError) {
-            res.status(err.code).send({ msg: err.message })
-        } else {
-            res.status(500).send({ msg: 'Something went wrong' })
-        }
+        next(err)
     }
 }
