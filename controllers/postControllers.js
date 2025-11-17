@@ -22,7 +22,7 @@ export const getPostById = async (req, res, next) => {
 
 export const getAllPosts = async (req, res) => {
     try {
-        const { sort_by, user_id } = req.query
+        const { sort_by, user_id, category_id } = req.query
         // SORT_BY QUERY
         const validSortBys = ['ASC', 'DESC']
 
@@ -34,17 +34,16 @@ export const getAllPosts = async (req, res) => {
         const allUsers = await User.getAllUsers();
         const validUserIds = allUsers.map(user => user.id);
         const parsedUserId = parseInt(user_id);
-        console.log(typeof(user_id))
-        if(!validUserIds.includes(parsedUserId)){
-            throw new AppError('user_id does not exist', 400)
-        }
-        // SQL injection
-        // const userCondidtion = `WHERE user.id = ${user_id}`
-        // console.log(userCondidtion)
-        const posts = await Post.findAll(sort_by, user_id);
+        if(user_id && !validUserIds.includes(parsedUserId)){
+            throw new AppError('provided user_id does not exist', 400);
+        };
+        
+        // CATEGORY_NAME QUERY
+        console.log(typeof(category_id))
+        const posts = await Post.findAll(sort_by, user_id, category_id);
         if(!posts.length) {
             return res.status(200).send({posts})
-    };
+        };
         res.status(200).send({posts})    
     }
     catch (err) {
