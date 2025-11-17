@@ -42,7 +42,7 @@ export const createUser = async (req, res, next) => {
         const saltRounds = 10;
         const password_hash = await bcrypt.hash(password, saltRounds)
         const newUser = await User.createNewUser({ username, fullname, email, password_hash, imageURL })
-        res.status(201).send({msg: 'User sucessfully created'})
+        res.status(201).send(newUser)
 
     } catch (err) {
         next(err)
@@ -65,7 +65,7 @@ export const loginUser = async (req, res, next) =>{
             throw new AppError('Incorrect password. Try again.', 401)
         }
 
-        res.status(200).send({msg: 'Login successful'}) 
+        res.status(200).send(user) 
 
 
     } catch (err){
