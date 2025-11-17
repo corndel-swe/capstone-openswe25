@@ -14,10 +14,10 @@ class User {
         return results
     }
 
-    static async getUserByUsername(username){
+    static async getUserByEmail(email){
         const results = await db.raw(`
             SELECT * from user
-            WHERE username = ?`, [username])
+            WHERE email = ?`, [email])
         return results[0]
     }
 

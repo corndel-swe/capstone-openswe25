@@ -52,11 +52,11 @@ export const createUser = async (req, res, next) => {
 export const loginUser = async (req, res, next) =>{
     try{
 
-        const {username, password} = req.body
-        const user = await User.getUserByUsername(username)
+        const {email, password} = req.body
+        const user = await User.getUserByEmail(email)
 
         if(!user || user.length === 0){
-            throw new AppError('Username provided is not linked to an account. Use an existing username or register a new account.', 401)
+            throw new AppError('Email address provided is not linked to an account. Use an existing email address or register a new account.', 401)
         }
 
         const comparePasswords = await bcrypt.compare(password, user.password_hash)
