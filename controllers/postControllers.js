@@ -102,3 +102,31 @@ export const postLike = async (req, res, next) => {
     }
 
 }
+
+export const deletePost = async (req, res, next) => {
+    const { id } = req.params
+
+    try {
+
+        if (isNaN(Number(id))) {
+            throw new AppError('Post ID must be a number', 400)
+        }
+
+        const validPost = await Post.findPostById(id)
+
+        if (!validPost) {
+            throw new AppError('Post does not exist', 404)
+        }
+
+        await Post.deletePost(id)
+
+        res.status(200).send({ msg: 'Post successfully deleted' })
+
+    }
+
+    catch (err) {
+        console.log(err)
+        next(err)
+
+    }
+}
