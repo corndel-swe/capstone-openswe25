@@ -53,15 +53,19 @@ export const loginUser = async (req, res, next) =>{
     try{
 
         const {email, password} = req.body
+
+        if(!email || !password){
+            throw new AppError('Email and password are required', 400)
+        }
         const user = await User.getUserByEmail(email)
 
         if(!user || user.length === 0){
             throw new AppError('Email address provided is not linked to an account. Use an existing email address or register a new account.', 401)
         }
 
-        const comparePasswords = await bcrypt.compare(password, user.password_hash)
+        const passwordsMatch = await bcrypt.compare(password, user.password_hash)
 
-        if(comparePasswords === false){
+        if(!passwordsMatch){
             throw new AppError('Incorrect password. Try again.', 401)
         }
 
