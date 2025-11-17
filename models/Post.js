@@ -27,6 +27,7 @@ class Post {
         const newPost = await db.raw(query, [title, content, id, imageURL])
         return newPost[0]
     }
+    
 }
 
 export default Post
