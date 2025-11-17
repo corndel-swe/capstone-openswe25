@@ -24,15 +24,11 @@ export const getAllCommentsForPost = async (req, res, next) => {
         res.status(200).send({ comments })
     }
     catch (err) {
-        if (err instanceof AppError) {
-            res.status(err.code).send({ msg: err.message })
-        } else {
-            res.status(500).send({ msg: 'Something went wrong' })
-        }
+       next(err)
     }
 }
 
-export const postNewComment = async (req, res) => {
+export const postNewComment = async (req, res, next) => {
 
     const { id } = req.params
 
@@ -70,11 +66,6 @@ export const postNewComment = async (req, res) => {
     }
 
     catch(err) {
-         if (err instanceof AppError) {
-            res.status(err.code).send({ msg: err.message })
-        } else {
-            res.status(500).send({ msg: 'Something went wrong' })
-        }
         next(err)
     }
 }
