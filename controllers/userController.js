@@ -42,9 +42,33 @@ export const createUser = async (req, res, next) => {
         const saltRounds = 10;
         const password_hash = await bcrypt.hash(password, saltRounds)
         const newUser = await User.createNewUser({ username, fullname, email, password_hash, imageURL })
-        res.status(201).send(newUser)
+        res.status(201).send({msg: 'User sucessfully created'})
 
     } catch (err) {
+        next(err)
+    }
+}
+
+export const loginUser = async (req, res, next) =>{
+    try{
+
+        const {username, password} = req.body
+        const user = await User.getUserByUsername(username)
+
+        if(!user || user.length === 0){
+            throw new AppError('Username provided is not linked to an account. Use an existing username or register a new account.', 401)
+        }
+
+        const comparePasswords = await bcrypt.compare(password, user.password_hash)
+
+        if(comparePasswords === false){
+            throw new AppError('Incorrect password. Try again.', 401)
+        }
+
+        res.status(200).send({msg: 'Login successful'}) 
+
+
+    } catch (err){
         next(err)
     }
 }

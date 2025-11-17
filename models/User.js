@@ -14,6 +14,13 @@ class User {
         return results
     }
 
+    static async getUserByUsername(username){
+        const results = await db.raw(`
+            SELECT * from user
+            WHERE username = ?`, [username])
+        return results[0]
+    }
+
     static async createNewUser({ username, fullname, email, password_hash, imageURL }) {
 
         const query = `
