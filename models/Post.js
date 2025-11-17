@@ -35,6 +35,14 @@ class Post {
         const rows = await db.raw(query, params);
         return rows;
     }
+    static async addPost(title, content, id, imageURL) {
+        const query = `
+        INSERT INTO post (title, content, user_id, image_url)
+        VALUES ( ? , ? , ? , ? )
+        RETURNING *`
+        const newPost = await db.raw(query, [title, content, id, imageURL])
+        return newPost[0]
+    }
 }
 
 export default Post
