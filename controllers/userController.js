@@ -1,5 +1,6 @@
 import User from "../models/User.js"
 import AppError from "../models/AppError.js"
+import bcrypt from "bcrypt"
 
 export const getUsers = async (req, res, next) => {
     try {
@@ -18,14 +19,14 @@ export const getUsers = async (req, res, next) => {
 
 export const createUser = async (req, res, next) => {
     try {
-        const { username, fullname, email, password_hash, imageURL } = req.body
+        const { username, fullname, email, password, imageURL } = req.body
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
 
 
 
-        if (!username || !fullname || !email || !password_hash || !imageURL) {
+        if (!username || !fullname || !email || !password || !imageURL) {
             throw new AppError('Missing required fields: Username, full name, email address, password and an image must all be provided', 400)
         }
 
@@ -34,10 +35,12 @@ export const createUser = async (req, res, next) => {
         }
 
 
-        if (!passwordRegex.test(password_hash)) {
+        if (!passwordRegex.test(password)) {
             throw new AppError('Password must be at least 8 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 symbol.', 400);
         }
 
+        const saltRounds = 10;
+        const password_hash = await bcrypt.hash(password, saltRounds)
         const newUser = await User.createNewUser({ username, fullname, email, password_hash, imageURL })
         res.status(201).send(newUser)
 
