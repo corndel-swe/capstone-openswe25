@@ -4,6 +4,7 @@ import User from "../models/User.js"
 import PostCategory from "../models/PostCategory.js"
 import Category from "../models/Category.js"
 import PostLike from "../models/PostLike.js"
+import imageWriteFile from "../utils/imageWriteFIle.js"
 
 export const getPostById = async (req, res, next) => {
     const { id } = req.params
@@ -29,7 +30,7 @@ export const getAllPosts = async (req, res) => {
 
 export const postNewPost = async (req, res, next) => {
 
-    const { title, content, id, imageURL, categories } = req.body
+    const { title, content, id = 1, categories, imageURL } = req.body
 
     try {
 
@@ -55,14 +56,21 @@ export const postNewPost = async (req, res, next) => {
             throw new AppError('User does not exist', 404)
         }
 
-        if (!categories.every(category => validCategories.includes(category))) {
+        if (categories.length === 1) {
+            if (!validCategories.includes(Number(categories[0]))) {
+
+                throw new AppError('Category does not exist', 404)
+            }
+        } else if (!categories.every(category => validCategories.includes(Number(category)))) {
             throw new AppError('Category does not exist', 404)
         }
 
-        const newPost = await Post.addPost(title, content, id, imageURL)
-        const categoriesAdded = await PostCategory.addCategoriesToPost(categories, newPost.id)
+        const imageURLPath = imageWriteFile(imageURL)
 
-        res.status(201).send({ newPost, categoriesAdded })
+        const newPost = await Post.addPost(title, content, id, imageURLPath)
+        await PostCategory.addCategoriesToPost(categories, newPost.id)
+
+        res.render(`singlePost.ejs`, { newPost })
     }
     catch (err) {
         next(err)
@@ -129,12 +137,11 @@ export const deletePost = async (req, res, next) => {
 
     }
 }
-export const getAddPostPage = async (req,res,next) => {
-    try{
-        console.log(req.body)
+export const getAddPostPage = async (req, res, next) => {
+    try {
         const categories = await Category.findAllCategories();
         res.render('createPost.ejs', { categories });
-    }catch(err){
+    } catch (err) {
         next(err)
     }
 }
