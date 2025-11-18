@@ -1,6 +1,8 @@
 import User from "../models/User.js"
 import AppError from "../models/AppError.js"
 import bcrypt from "bcrypt"
+import fs from "fs";
+import path from "path";
 
 export const getUsers = async (req, res, next) => {
     try {
@@ -23,20 +25,21 @@ export const getRegisterPage = async (req, res, next) =>{
 
         res.render('register')
     } catch (err){
+        console.log(err)
         next(err)
     }
 }
 
 export const createUser = async (req, res, next) => {
     try {
-        const { username, fullname, email, password, confirm_password, imageURL } = req.body
+        const { username, fullname, email, password, confirm_password, imageBase64 } = req.body
+        console.log(req.body)
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
 
 
-
-        if (!username || !fullname || !email || !password || !confirm_password || !imageURL) {
+        if (!username || !fullname || !email || !password || !confirm_password) {
             throw new AppError('Missing required fields: Username, full name, email address, password and an image must all be provided', 400)
         }
 
@@ -52,6 +55,24 @@ export const createUser = async (req, res, next) => {
         if (password !== confirm_password){
             throw new AppError('Passwords do not match. Try again.', 400)
         }
+
+        if (!imageBase64) {
+            throw new AppError("Image is required", 400);
+        }
+
+        
+        const base64Data = imageBase64.split(";base64,").pop();
+
+       
+        const filename = `${Date.now()}.png`;
+        const filePath = path.join("public", "uploads", filename);
+
+        
+        fs.writeFileSync(filePath, base64Data, { encoding: "base64" });
+
+        
+        const imageURL = `/uploads/${filename}`;
+
 
         const saltRounds = 10;
         const password_hash = await bcrypt.hash(password, saltRounds)
