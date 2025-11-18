@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/createPost.css" />
+    <title>YellowIT</title>
+  </head>
+  <body>
+    <form id="postForm" action="/post/new" method="POST">
+      <input type="hidden" name="imageURL" id="imageURL" class="image-data" />
+
+      <label for="title">Title</label>
+      <input type="text" name="title" required />
+
+      <label for="content">Content</label>
+      <textarea name="content" required></textarea>
+
+      <label for="categories">Categories</label>
+      <select name="categories" multiple required>
+        <% categories.forEach(category => { %>
+        <option value="<%= category.id %>"><%= category.name %></option>
+        <% }); %>
+      </select>
+
+      <label for="image">Upload Image</label>
+      <input
+        type="file"
+        id="image"
+        accept="image/*"
+        name="image"
+        class="image-input"
+        required
+      />
+
+      <button type="submit">Create Post</button>
+    </form>
+
+    <script src="/js/imageUploadScript.js"></script>
+  </body>
+</html>
