@@ -7,7 +7,7 @@ import { handleErrors } from '../errors/errorHandling.js';
 const app = express();
 app.use(express.json());
 app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({limit: '50mb', extended: true }))
 app.set('view engine', 'ejs')
 
 app.use('/post', postRouter)
