@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YellowIT</title>
+  </head>
+  <body>
+    <article class="single-post-container">
+      <header>
+        <h1><%= post.title%></h1>
+        <h2><%= post.username%></h2>
+        <h3><%= post.created_at%></h3>
+        <h4>Likes: <%= post.total_likes%></h4>
+      </header>
+      <img
+        src="/images/default-post.png"
+        alt="Image for post"
+        style="width: 400px"
+      />
+      <p><%= post.content%></p>
+    </article>
+    <section class="comments-section">
+      <% for(const comment of comments){ %>
+      <article class="comment-container">
+        <p><%= comment.content%></p>
+        <p><%= comment.created_at%></p>
+        <p><%= comment.username%></p>
+      </article>
+      <%}%>
+    </section>
+  </body>
+</html>

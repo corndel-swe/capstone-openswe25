@@ -5,6 +5,9 @@ import PostCategory from "../models/PostCategory.js"
 import Category from "../models/Category.js"
 import PostLike from "../models/PostLike.js"
 import imageWriteFile from "../utils/imageWriteFIle.js"
+import Comment from "../models/Comment.js"
+import formatCreatedAt from "../utils/formatCreatedAt.js"
+import timeSince from "../utils/timeSince.js"
 
 export const getPostById = async (req, res, next) => {
     const { id } = req.params
@@ -13,10 +16,16 @@ export const getPostById = async (req, res, next) => {
             throw new AppError('ID provided must be a valid number', 400)
         }
         const post = await Post.findPostById(id)
+        const comments = await Comment.findAllById(id)
         if (!post) {
             throw new AppError('Post not found', 404)
         }
-        res.status(200).send({ post })
+
+        const formattedDate = formatCreatedAt(post.created_at)
+        post.created_at = formattedDate
+        comments.forEach((comment) => comment.created_at = timeSince(comment.created_at))
+
+        res.render('singlePost.ejs', { post, comments })
     }
     catch (err) {
         next(err)
@@ -68,9 +77,9 @@ export const postNewPost = async (req, res, next) => {
         const imageURLPath = imageWriteFile(imageURL)
 
         const newPost = await Post.addPost(title, content, id, imageURLPath)
-        await PostCategory.addCategoriesToPost(categories, newPost.id)
+        const addedCategories = await PostCategory.addCategoriesToPost(categories, newPost.id)
 
-        res.render(`singlePost.ejs`, { newPost })
+        res.render(`singlePost.ejs`, { newPost: addedCategories })
     }
     catch (err) {
         next(err)
