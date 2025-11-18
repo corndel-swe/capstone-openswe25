@@ -4,7 +4,6 @@ import bcrypt from "bcrypt"
 import fs from "fs";
 import path from "path";
 import app from "../server/app.js";
-import { Session } from "inspector";
 
 export const getUsers = async (req, res, next) => {
     try {
