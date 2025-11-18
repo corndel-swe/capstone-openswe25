@@ -125,14 +125,15 @@ export const deletePost = async (req, res, next) => {
     }
 
     catch (err) {
-        console.log(err)
         next(err)
 
     }
 }
 export const getAddPostPage = async (req,res,next) => {
     try{
-        res.render('createPost')
+        console.log(req.body)
+        const categories = await Category.findAllCategories();
+        res.render('createPost.ejs', { categories });
     }catch(err){
         next(err)
     }
