@@ -11,7 +11,14 @@ export const getUsers = async (req, res, next) => {
         if (!users) {
             throw new AppError('Users not found', 404)
         }
-        res.status(200).send(users)
+        const cards = users.map((user)=>{
+           return {
+                title: user.username,
+                imageURL : user.imageURL,
+                id : user.id
+            }
+        })
+        res.render('userAndCategory.ejs', { cards , content : 'user'})
 
     } catch (err) {
         next(err)
