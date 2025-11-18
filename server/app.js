@@ -16,4 +16,8 @@ app.use('/comment', commentRouter)
 
 app.use(handleErrors)
 
+app.use((req, res, next) => {
+    res.sendStatus(404)
+});
+
 export default app
