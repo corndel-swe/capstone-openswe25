@@ -23,9 +23,9 @@ export const getRegisterPage = async (req, res, next) => {
 
     try {
 
-        res.render('register')
+        res.render('register', { msg: null, code: null})
     } catch (err) {
-        res.render('register', { msg: err.message, code: err.code})
+        
     }
 }
 
@@ -83,6 +83,14 @@ export const createUser = async (req, res, next) => {
     }
 }
 
+export const getLoginPage = async (req, res, next) =>{
+    try{
+        res.render('login', { msg: null, code: null})
+    } catch (err) {
+        
+    }
+}
+
 export const loginUser = async (req, res, next) => {
     try {
 
@@ -103,10 +111,17 @@ export const loginUser = async (req, res, next) => {
             throw new AppError('Incorrect password. Try again.', 401)
         }
 
-        res.status(200).send(user)
+        
+        req.session.user = {
+        id: user.id,
+        username: user.username,
+        email: user.email
+        };
+
+        res.status(200).redirect("/user");
 
 
     } catch (err) {
-        next(err)
+        res.render('login', {msg: err.message, code: err.code})
     }
 }
