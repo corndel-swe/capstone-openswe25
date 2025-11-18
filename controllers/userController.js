@@ -3,6 +3,8 @@ import AppError from "../models/AppError.js"
 import bcrypt from "bcrypt"
 import fs from "fs";
 import path from "path";
+import app from "../server/app.js";
+import { Session } from "inspector";
 
 export const getUsers = async (req, res, next) => {
     try {
@@ -26,6 +28,15 @@ export const getRegisterPage = async (req, res, next) =>{
         res.render('register', {msg: null, code:null})
     } catch (err){
         console.log(err)
+        next(err)
+    }
+}
+
+export const getLoginPage = async (req, res, next) => {
+
+    try{
+        res.render('login', {msg: null})
+    } catch(err){
         next(err)
     }
 }
@@ -104,10 +115,11 @@ export const loginUser = async (req, res, next) =>{
             throw new AppError('Incorrect password. Try again.', 401)
         }
 
-        res.status(200).send(user) 
-
-
+        sessionStorage.setItem("user", user.username)
+        // res.status(200).send({username: user.username})
+        
     } catch (err){
-        next(err)
+       res.render('login', { msg: err.message, code: err.code})
     }
 }
+
