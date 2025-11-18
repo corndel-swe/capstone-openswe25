@@ -4,7 +4,7 @@ const timeSince = (postCreatedAt) => {
 
     const secondsSincePost = Math.floor((now - createdAtDate) / 1000)
     
-    if (secondsSincePost <= 30) {
+    if (secondsSincePost <= 60) {
         return 'Just now'
     }
     if (secondsSincePost < 3600) {
