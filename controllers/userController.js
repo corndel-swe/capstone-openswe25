@@ -25,7 +25,7 @@ export const getRegisterPage = async (req, res, next) => {
 
         res.render('register')
     } catch (err) {
-        next(err)
+        res.render('register', { msg: err.message, code: err.code})
     }
 }
 
@@ -78,7 +78,8 @@ export const createUser = async (req, res, next) => {
         res.status(201).send(newUser)
 
     } catch (err) {
-        next(err)
+        res.render('register', { msg: err.message, code: err.code})
+        
     }
 }
 
