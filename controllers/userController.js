@@ -23,7 +23,7 @@ export const getRegisterPage = async (req, res, next) =>{
 
     try {
 
-        res.render('register')
+        res.render('register', {msg: null, code:null})
     } catch (err){
         console.log(err)
         next(err)
@@ -33,7 +33,6 @@ export const getRegisterPage = async (req, res, next) =>{
 export const createUser = async (req, res, next) => {
     try {
         const { username, fullname, email, password, confirm_password, imageBase64 } = req.body
-        console.log(req.body)
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
@@ -80,7 +79,8 @@ export const createUser = async (req, res, next) => {
         res.status(201).send(newUser)
 
     } catch (err) {
-        next(err)
+        res.render('register', { msg: err.message, code: err.code})
+        
     }
 }
 
