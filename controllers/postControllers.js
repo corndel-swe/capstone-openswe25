@@ -24,8 +24,59 @@ export const getPostById = async (req, res, next) => {
 }
 
 export const getAllPosts = async (req, res) => {
-    const posts = await Post.findAll();
-    res.status(200).send(posts)
+    try {
+        const { order_by, sort_by, user_id, category_id } = req.query
+        // ORDER_BY QUERY
+        const validOrderBys = ['DATE', 'LIKE'];
+
+        if(order_by && !validOrderBys.includes(order_by)){
+             throw new AppError('order_by must be DATE or LIKE', 400)
+        };
+
+        // SORT_BY QUERY
+        const validSortBys = ['ASC', 'DESC'];
+
+        if(sort_by && !validSortBys.includes(sort_by)){
+             throw new AppError('sort_by must be ASC or DESC', 400)
+        };
+
+        // USER_ID QUERY
+        if(user_id && isNaN(Number(user_id))) {
+            throw new AppError('user_id should be a number', 400);
+        };
+
+        const allUsers = await User.getAllUsers();
+        const validUserIds = allUsers.map(user => user.id);
+        const parsedUserId = parseInt(user_id);
+        
+        if(user_id && !validUserIds.includes(parsedUserId)){
+            throw new AppError('user_id does not exist', 400);
+        };
+        
+        // CATEGORY_ID QUERY
+        if(category_id && isNaN(Number(category_id))) {
+            throw new AppError('category_id should be a number', 400);
+        };
+
+        const allCategories = await Category.findAllCategories();
+        const validCategoryIds = allCategories.map(category => category.id);
+        const parsedCategoryId = parseInt(category_id);
+        
+        if(category_id && !validCategoryIds.includes(parsedCategoryId)){
+             throw new AppError('category does not exist', 400);
+        };
+
+        const posts = await Post.findAll(order_by, sort_by, user_id, category_id);
+        res.status(200).send({posts});    
+    }
+    catch (err) {
+        console.log(err);
+        if(err instanceof AppError) {
+            res.status(err.code).send({ msg:err.message });
+        } else {
+            res.status(500).send({ msg: 'Something went wrong' });
+        };
+    };
 };
 
 export const postNewPost = async (req, res, next) => {
