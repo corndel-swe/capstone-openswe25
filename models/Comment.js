@@ -5,7 +5,7 @@ class Comment {
         const results = await db.raw(`
             SELECT comment.content, comment.created_at, user.username FROM comment
             INNER JOIN user ON comment.user_id = user.id
-            WHERE user_id = ?;`, [id])
+            WHERE post_id = ?;`, [id])
         return results
     }
     static async addComment(postId, userId, content) {

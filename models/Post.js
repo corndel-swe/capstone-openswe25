@@ -1,11 +1,19 @@
 import db from '../db/index.js'
-import Category from './Category.js';
 class Post {
     static async findPostById(id) {
         const query = `
-            SELECT post.title, user.username, post.created_at, COUNT(post_like.post_id) AS total_likes, post.image_url, post.content FROM post
+            SELECT post.id, post.title, user.username, post.user_id, post.created_at, post.image_url, post.content, 
+            GROUP_CONCAT (DISTINCT category.name) AS category_name,
+            GROUP_CONCAT (DISTINCT post_Category.category_id) AS category_id,
+            (
+                SELECT count(post_id) 
+                FROM post_like
+                WHERE post_like.post_id = post.id
+            ) total_likes
+            FROM post
             INNER JOIN user ON post.user_id = user.id
-            INNER JOIN post_like ON post.id = post_like.post_id
+            INNER JOIN post_category ON post_category.post_id = post.id
+            INNER JOIN category ON post_category.category_id = category.id
             WHERE post.id = ?
             GROUP BY post.id;
             `
@@ -33,10 +41,10 @@ class Post {
             WHERE category_id = ?)`;
             params.push(categoryId);
         }
-        if(order_by === 'LIKE') {
+        if (order_by === 'LIKE') {
             orderClause = 'ORDER BY total_likes'
         };
-        
+
         const query = `
         SELECT 
             post.image_url,
@@ -61,6 +69,7 @@ class Post {
         GROUP BY post.id
         ${orderClause} ${sortBy}
         `;
+        console.log(query)
         const rows = await db.raw(query, params);
         return rows;
     }
@@ -72,7 +81,7 @@ class Post {
         const newPost = await db.raw(query, [title, content, id, imageURL])
         return newPost[0]
     }
-     static async deletePost(id){
+    static async deletePost(id) {
         const query = `
         DELETE FROM post
         WHERE id = ?`

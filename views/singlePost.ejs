@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YellowIT</title>
+  </head>
+  <body>
+    <article class="single-post-container">
+      <header>
+        <h1><%= post.title%></h1>
+        <a href="/post?user_id=<%= post.id%>"><h2><%= post.username%></h2></a>
+        <h3><%= post.created_at%></h3>
+        <h4>Likes: <%= post.total_likes%></h4>
+        <form action="<%=`/post/${post.id}/like`%>" method="POST">
+          <input type="hidden" value="1" name="userId" />
+          <button type="submit">Like</button>
+        </form>
+      </header>
+      <img
+        src="/images/default-post.png"
+        alt="Image for post"
+        style="width: 400px"
+      />
+      <p><%= post.content%></p>
+      <% for(let i = 0; i < post.category_name.split(',').length; i++){%>
+      <a href="/post?category_id=<%= post.category_id.split(',')[i]%>"
+        ><p><%= post.category_name.split(',')[i]%></p></a
+      >
+      <%}%>
+    </article>
+    <section class="comments-section">
+      <% for(const comment of comments){ %>
+      <article class="comment-container">
+        <p><%= comment.content%></p>
+        <p><%= comment.created_at%></p>
+        <p><%= comment.username%></p>
+      </article>
+      <%}%>
+      <form action="/comment/<%=post.id%>" method="POST">
+        <textarea name="content" id="comment-content"></textarea>
+        <button type="submit">Post comment</button>
+      </form>
+    </section>
+  </body>
+</html>
