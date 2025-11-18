@@ -1,12 +1,5 @@
-<!-- Header to be imported in -->
- <!DOCTYPE html>
- <html lang="en">
- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
- </head>
- <body>
+<%- include('partials/header')%>
+
     <h1 class="register-header">Register</h1>
     <form action="/user/register" method="post" enctype="application/x-www-form-urlencoded">
     <input type="text" name="email" placeholder="Enter email address">
