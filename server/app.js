@@ -9,14 +9,21 @@ import 'dotenv/config'
 const secretPassword = process.env.SECRET
 
 const app = express();
-app.use(express.json());
-app.use(express.static('public'));
-app.use(express.urlencoded({limit: '50mb', extended: true }))
+
+
 app.use(session({
     secret: secretPassword,
     resave: false,
     saveUninitialized: false,
 }));
+
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null;
+    next();
+});
+app.use(express.json());
+app.use(express.static('public'));
+app.use(express.urlencoded({limit: '50mb', extended: true }))
 
 app.set('view engine', 'ejs')
 
@@ -26,10 +33,6 @@ app.use('/comment', commentRouter)
 
 app.use(handleErrors)
 
-app.use((req, res, next) => {
-    res.locals.user = req.session.user || null;
-    next();
-});
 
 
 app.use((req, res, next) => {

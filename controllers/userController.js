@@ -118,6 +118,7 @@ export const loginUser = async (req, res, next) => {
         email: user.email
         };
 
+    
         res.status(200).redirect("/user");
 
 
@@ -125,3 +126,13 @@ export const loginUser = async (req, res, next) => {
         res.render('login', {msg: err.message, code: err.code})
     }
 }
+
+export const logoutUser = (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).send("Error logging out");
+        }
+        res.redirect('/user/login');
+    });
+};
+
