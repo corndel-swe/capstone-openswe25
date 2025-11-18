@@ -5,6 +5,9 @@ import PostCategory from "../models/PostCategory.js"
 import Category from "../models/Category.js"
 import PostLike from "../models/PostLike.js"
 import imageWriteFile from "../utils/imageWriteFIle.js"
+import Comment from "../models/Comment.js"
+import formatCreatedAt from "../utils/formatCreatedAt.js"
+import timeSince from "../utils/timeSince.js"
 
 export const getPostById = async (req, res, next) => {
     const { id } = req.params
@@ -16,7 +19,13 @@ export const getPostById = async (req, res, next) => {
         if (!post) {
             throw new AppError('Post not found', 404)
         }
-        res.status(200).send({ post })
+
+        post.created_at = formatCreatedAt(post.created_at)
+
+        const comments = await Comment.findAllById(id)
+        comments.forEach((comment) => comment.created_at = timeSince(comment.created_at))
+
+        res.render('singlePost.ejs', { post, comments })
     }
     catch (err) {
         next(err)
@@ -29,53 +38,48 @@ export const getAllPosts = async (req, res) => {
         // ORDER_BY QUERY
         const validOrderBys = ['DATE', 'LIKE'];
 
-        if(order_by && !validOrderBys.includes(order_by)){
-             throw new AppError('order_by must be DATE or LIKE', 400)
+        if (order_by && !validOrderBys.includes(order_by)) {
+            throw new AppError('order_by must be DATE or LIKE', 400)
         };
 
         // SORT_BY QUERY
         const validSortBys = ['ASC', 'DESC'];
 
-        if(sort_by && !validSortBys.includes(sort_by)){
-             throw new AppError('sort_by must be ASC or DESC', 400)
+        if (sort_by && !validSortBys.includes(sort_by)) {
+            throw new AppError('sort_by must be ASC or DESC', 400)
         };
 
         // USER_ID QUERY
-        if(user_id && isNaN(Number(user_id))) {
+        if (user_id && isNaN(Number(user_id))) {
             throw new AppError('user_id should be a number', 400);
         };
 
         const allUsers = await User.getAllUsers();
         const validUserIds = allUsers.map(user => user.id);
         const parsedUserId = parseInt(user_id);
-        
-        if(user_id && !validUserIds.includes(parsedUserId)){
+
+        if (user_id && !validUserIds.includes(parsedUserId)) {
             throw new AppError('user_id does not exist', 400);
         };
-        
+
         // CATEGORY_ID QUERY
-        if(category_id && isNaN(Number(category_id))) {
+        if (category_id && isNaN(Number(category_id))) {
             throw new AppError('category_id should be a number', 400);
         };
 
         const allCategories = await Category.findAllCategories();
         const validCategoryIds = allCategories.map(category => category.id);
         const parsedCategoryId = parseInt(category_id);
-        
-        if(category_id && !validCategoryIds.includes(parsedCategoryId)){
-             throw new AppError('category does not exist', 400);
+
+        if (category_id && !validCategoryIds.includes(parsedCategoryId)) {
+            throw new AppError('category does not exist', 400);
         };
 
         const posts = await Post.findAll(order_by, sort_by, user_id, category_id);
-        res.status(200).send({posts});    
+        res.status(200).send({ posts });
     }
     catch (err) {
-        console.log(err);
-        if(err instanceof AppError) {
-            res.status(err.code).send({ msg:err.message });
-        } else {
-            res.status(500).send({ msg: 'Something went wrong' });
-        };
+       next(err)
     };
 };
 
@@ -119,9 +123,16 @@ export const postNewPost = async (req, res, next) => {
         const imageURLPath = imageWriteFile(imageURL)
 
         const newPost = await Post.addPost(title, content, id, imageURLPath)
+
+        newPost.created_at = formatCreatedAt(newPost.created_at)
+
         await PostCategory.addCategoriesToPost(categories, newPost.id)
 
-        res.render(`singlePost.ejs`, { newPost })
+        const post = await Post.findPostById(newPost.id)
+
+        post.created_at = formatCreatedAt(post.created_at)
+
+        res.render(`singlePost.ejs`, { post, comments: [] })
     }
     catch (err) {
         next(err)
@@ -129,20 +140,20 @@ export const postNewPost = async (req, res, next) => {
 }
 
 export const postLike = async (req, res, next) => {
-    const { user } = req.body
+    const { userId } = req.body
     const { id } = req.params
 
     try {
 
-        if (!user.id) {
+        if (!userId) {
             throw new AppError('User ID must be provided', 400)
         }
 
-        if (isNaN(Number(user.id)) || isNaN(Number(id))) {
+        if (isNaN(Number(userId)) || isNaN(Number(id))) {
             throw new AppError('User ID and Post ID must both be valid numbers', 400)
         }
 
-        const validUser = await User.getUserById(user.id)
+        const validUser = await User.getUserById(userId)
 
         if (!validUser.length) {
             throw new AppError('User does not exist', 404)
@@ -153,8 +164,17 @@ export const postLike = async (req, res, next) => {
         if (!validPost) {
             throw new AppError('Post does not exist', 404)
         }
-        await PostLike.addLike(id, user.id)
-        res.status(201).send({ msg: 'Post successfully liked' })
+        await PostLike.addLike(id, userId)
+
+        const post = await Post.findPostById(id)
+
+        post.created_at = formatCreatedAt(post.created_at)
+
+        const comments = await Comment.findAllById(id)
+
+        comments.forEach((comment) => comment.created_at = timeSince(comment.created_at))
+
+        res.render('singlePost.ejs', { post, comments })
     }
     catch (err) {
         next(err)
