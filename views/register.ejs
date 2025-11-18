@@ -22,12 +22,10 @@
     <input type="submit" value="submit">
    </form>
 
-   <div class="error_message">
-   
-   
-   </div>
+   <% if (msg && code) { %>
+   <div class="error_message"> <%= `${msg}`%></div>
 
-
+      <% } %>
 
    <script src="/js/script.js"></script>
  </body>
