@@ -3,17 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>YellowIt</title>
 </head>
 <body>
     <header>
    
-        <div class="hamburger-menu"></div>
+        <div class="hamburger-menu">
+            <a href="/category">Categories</a>
+            <a href="/user">Users </a>
+            <a href="/post/new">Create Post</a>
+
+
+
+        </div>
+
+
         <a href="/post/" class="centre-logo">YellowIt</a>
+
    <div class="top-right-nav">
     <% if (user) { %>
-        <p>Welcome, <%= user.username %>!</p>
-        <a href="/user/logout">Logout</a>
+        <span>Welcome, <%= user.username %>! <a href="/user/logout">Logout</a></span>
+        
     <% } else { %>
         <a href="/user/login">Login</a>
         <a href="/user/register">Register</a>
