@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<%- include('partials/header')%>
     <% for(const card of cards) { %>
      <a href="/post/?<%= content%>=<%=card.id%>"><div class="card">
         <img src="<%= card.imageURL %>" alt="profile picture" style="width: 100px;">
