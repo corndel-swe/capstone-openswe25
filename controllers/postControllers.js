@@ -86,7 +86,7 @@ export const getAllPosts = async (req, res, next) => {
             post.category_name = formatCategory(post.category_name);
         }
         // res.status(200).send({ posts });
-        res.render('index.ejs', { posts, categories });
+        res.render('index.ejs', { posts, categories, users : allUsers});
     }
     catch (err) {
        next(err);

@@ -1,25 +1,24 @@
 <%- include('partials/header') %>
     <nav class="filter">
         <form action="/post/" method="GET">
-            <select name="category_id" id="category-selector">
+            <select name="category_id" id="category-selector" class="category_id">
                 <option value="" disabled selected>Select a Category</option>
                 <% for (const category of categories) { %>
                 <option value="<%= category.id %>"><%= category.name %></option>
                 <% } %>
             </select>
-            <button type="button" class="reset-button" data-target-id="category-selector">X</button>
-            <select name="user_id" id="user-selector">
+            <select name="user_id" id="user-selector" class="user_id">
                 <option value="" disabled selected>Select a User</option>
-                <% for (const post of posts) { %>
-                <option value="<%= post.user_id %>"><%= post.username %></option>
+                <% for (const user of users) { %>
+                <option value="<%= user.id %>"><%= user.username %></option>
                 <% } %>
             </select>
-            <select name="sort_by" id="sort-selector">
+            <select name="sort_by" id="sort-selector" class="sort_by">
                 <option value="" disabled selected>Select a Sort</option>
                 <option value="ASC">Ascending</option>
                 <option value="DESC">Descending</option>
             </select>
-            <select name="order_by" id="order-selector">
+            <select name="order_by" id="order-selector" class="order_by">
                 <option value="" disabled selected>Select a Order</option>
                 <option value="DATE">Date created</option>
                 <option value="LIKE">Number of likes</option>
@@ -29,19 +28,33 @@
         </form>
     </nav>
     <section class="posts-section" style="display: flex; justify-content: auto; align-items: center;">
+        <% if (!posts.length) { %>
+        <p>No results</p>    
+        <%} else {%>
         <% for (const post of posts) { %>
             <div class="thumbnail" style="border: 2px solid;">
                 <a href="<%= `/post/?${Object.keys(post)[2]}=${post.user_id}` %>"><%= post.username %></a>
                 <a href="<%= `/post/${post.id}` %>" >
-                    <img src="<%= `/images/${post.image_url}` %>" alt="<%=`post ${post.id} thumbnail image` %>" style="width: 400px">
+                    <img src="<%= post.image_url %>" alt="<%=`post ${post.id} thumbnail image` %>" style="width: 400px">
                 </a>
                 <h1 class="title" style="text-transform: capitalize;"><%= post.title %></h1>
                 <p class="likes"><%= post.total_likes %> likes</p>
                 <p class="date"><%= post.created_at %></p>
                 <p class="category"><%= post.category_name %></p>
             </div>
-        <% } %>
+        <% }} %>
     </section>
-    <script src="resetBtnScript.js"></script>
+    <script>
+        const url = new URL(window.location.href)
+        url.searchParams.forEach((value, key) => {
+            const selectOpt = document.querySelectorAll(`.${key} > option`)
+            selectOpt.forEach(option => {
+                if (option.value === value) {
+                    option.selected = true;
+                }
+            })
+        
+        })
+    </script>
 </body> 
 </html>
