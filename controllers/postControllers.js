@@ -76,7 +76,8 @@ export const getAllPosts = async (req, res) => {
         };
 
         const posts = await Post.findAll(order_by, sort_by, user_id, category_id);
-        res.status(200).send({ posts });
+        // res.status(200).send({ posts });
+        res.render('index.ejs', { posts })
     }
     catch (err) {
        next(err)
