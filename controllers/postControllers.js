@@ -37,7 +37,13 @@ export const getPostById = async (req, res, next) => {
 
 export const getAllPosts = async (req, res, next) => {
     try {
-        const { order_by, sort_by, user_id, category_id } = req.query
+        const { sort, user_id, category_id } = req.query;
+        let order_by = ''
+        let sort_by = ''
+        if(sort){
+            order_by = sort.split('|')[0]
+            sort_by = sort.split('|')[1]
+        }
         // ORDER_BY QUERY
         const validOrderBys = ['DATE', 'LIKE'];
 

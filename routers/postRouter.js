@@ -6,8 +6,8 @@ const postRouter = new Router()
 
 postRouter.get('/new', requireAuth, getAddPostPage)
 postRouter.post('/:id/like', requireAuth, postLike)
-postRouter.get('/:id', requireAuth, getPostById)
-postRouter.get('/', requireAuth, getAllPosts)
+postRouter.get('/:id', getPostById)
+postRouter.get('/', getAllPosts)
 postRouter.post('/new', requireAuth, postNewPost)
 postRouter.delete('/:id', requireAuth, deletePost)
 

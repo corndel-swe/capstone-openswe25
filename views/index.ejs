@@ -13,16 +13,17 @@
                 <option value="<%= user.id %>"><%= user.username %></option>
                 <% } %>
             </select>
-            <select name="sort_by" id="sort-selector" class="sort_by">
-                <option value="" disabled selected>Select a Sort</option>
+            <select name="sort" id="order-selector" class="sort">
+                <option value="" disabled selected>Sort by</option>
+                <option value="LIKE|ASC">Least Liked</option>
+                <option value="LIKE|DESC">Most Liked</option>
+                <option value="DATE|DESC">Newest</option>
+                <option value="DATE|ASC">Oldest</option>
+            </select>
+            <!-- <select name="sort_by" id="sort-selector" class="sort_by">
                 <option value="ASC">Ascending</option>
-                <option value="DESC">Descending</option>
-            </select>
-            <select name="order_by" id="order-selector" class="order_by">
-                <option value="" disabled selected>Select a Order</option>
-                <option value="DATE">Date created</option>
-                <option value="LIKE">Number of likes</option>
-            </select>
+                <option value="DESC" selected>Descending</option>
+            </select> -->
             <button type="submit">Go to Page</button>
             <button type="reset">Reset</button>
         </form>
