@@ -25,11 +25,13 @@ export const getPostById = async (req, res, next) => {
 
         const comments = await Comment.findAllById(id)
         comments.forEach((comment) => comment.created_at = timeSince(comment.created_at))
-
-        res.render('singlePost.ejs', { post, comments })
+        res.render('singlePost.ejs', { post, comments, error: null })
     }
     catch (err) {
-        next(err)
+        res.render('singlePost.ejs', {
+            post: null, comments: [], error:
+                { isLikeError: false, message: err.message, code: err.code }
+        });
     }
 }
 
@@ -93,7 +95,8 @@ export const getAllPosts = async (req, res, next) => {
 
 export const postNewPost = async (req, res, next) => {
 
-    const { title, content, id = 1, categories, imageURL } = req.body
+    const { title, content, categories, imageURL } = req.body
+    const id = req.session.user.id
 
     try {
 
@@ -132,23 +135,18 @@ export const postNewPost = async (req, res, next) => {
 
         const newPost = await Post.addPost(title, content, id, imageURLPath)
 
-        newPost.created_at = formatCreatedAt(newPost.created_at)
-
         await PostCategory.addCategoriesToPost(categories, newPost.id)
 
-        const post = await Post.findPostById(newPost.id)
-
-        post.created_at = formatCreatedAt(post.created_at)
-
-        res.render(`singlePost.ejs`, { post, comments: [] })
+        res.status(200).redirect(`/post/${newPost.id}`)
     }
     catch (err) {
-        next(err)
+        const categories = await Category.findAllCategories()
+        res.render('createPost.ejs', { categories, error: { message: err.message, code: err.code } })
     }
 }
 
 export const postLike = async (req, res, next) => {
-    const { userId } = req.body
+    const userId = req.session.user.id
     const { id } = req.params
 
     try {
@@ -174,20 +172,18 @@ export const postLike = async (req, res, next) => {
         }
         await PostLike.addLike(id, userId)
 
-        const post = await Post.findPostById(id)
-
-        post.created_at = formatCreatedAt(post.created_at)
-
-        const comments = await Comment.findAllById(id)
-
-        comments.forEach((comment) => comment.created_at = timeSince(comment.created_at))
-
-        res.render('singlePost.ejs', { post, comments })
+        res.status(200).redirect(`/post/${id}`)
     }
     catch (err) {
-        next(err)
+        const post = await Post.findPostById(id);
+        const comments = await Comment.findAllById(id)
+        post.created_at = formatCreatedAt(post.created_at)
+        comments.forEach((comment) => comment.created_at = timeSince(comment.created_at))
+        res.render('singlePost.ejs', {
+            post, comments, error:
+                { isLikeError: true, message: err.message, code: err.code }
+        });
     }
-
 }
 
 export const deletePost = async (req, res, next) => {
@@ -213,14 +209,16 @@ export const deletePost = async (req, res, next) => {
 
     catch (err) {
         next(err)
-
     }
 }
 export const getAddPostPage = async (req, res, next) => {
     try {
         const categories = await Category.findAllCategories();
-        res.render('createPost.ejs', { categories });
+        if (!categories.length) {
+            throw new AppError('Categories could not be loaded, please try again', 404)
+        }
+        res.render('createPost.ejs', { categories, error: null });
     } catch (err) {
-        next(err)
+        res.render('createPost.ejs', { categories: [], error: err });
     }
 }
