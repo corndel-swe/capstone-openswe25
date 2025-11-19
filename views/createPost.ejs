@@ -27,6 +27,9 @@
 
       <button type="submit">Create Post</button>
     </form>
+    <% if(error){%>
+    <p><%=`${error.code}: ${error.message}`%></p>
+    <%}%>
 
     <script src="/js/imageUploadScript.js"></script>
   </body>

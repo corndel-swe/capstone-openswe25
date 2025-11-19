@@ -34,7 +34,9 @@ export const postNewComment = async (req, res, next) => {
 
     const { id } = req.params
 
-    const { content, userId = 1 } = req.body
+    const { content } = req.body
+
+    const userId = req.session.user.id
 
     try {
 
@@ -64,18 +66,17 @@ export const postNewComment = async (req, res, next) => {
 
         await Comment.addComment(id, userId, content)
 
-        const post = await Post.findPostById(id)
-
-        post.created_at = formatCreatedAt(post.created_at)
-        
-        const comments = await Comment.findAllById(id)
-        
-        comments.forEach((comment) => comment.created_at = timeSince(comment.created_at))
-
-        res.render('singlePost.ejs', { post, comments })
+        res.redirect(`/post/${id}`)
     }
 
     catch (err) {
-        next(err)
+        const post = await Post.findPostById(id)
+
+        post.created_at = formatCreatedAt(post.created_at)
+
+        const comments = await Comment.findAllById(id)
+
+        comments.forEach((comment) => comment.created_at = timeSince(comment.created_at))
+        res.render('singlePost', { post, comments, error: { isCommentError: true, isLikeError: false, message: err.message, code: err.code } })
     }
 }
