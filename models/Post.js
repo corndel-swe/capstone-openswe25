@@ -69,7 +69,6 @@ class Post {
         GROUP BY post.id
         ${orderClause} ${sortBy}
         `;
-        console.log(query)
         const rows = await db.raw(query, params);
         return rows;
     }

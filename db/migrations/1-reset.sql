@@ -13,13 +13,13 @@ CREATE TABLE IF NOT EXISTS user (
     email TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
     joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    imageURL TEXT NOT NULL DEFAULT 'default-profile-picture.png'
+    imageURL TEXT NOT NULL DEFAULT '/images/default-profile-picture.png'
 );
 
 CREATE TABLE IF NOT EXISTS category (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE,
-    imageURL TEXT NOT NULL DEFAULT 'default-category.png'
+    imageURL TEXT NOT NULL DEFAULT '/images/default-category.png'
 );
 
 CREATE TABLE IF NOT EXISTS post (
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS post (
     user_id INTEGER NOT NULL,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
-    image_url TEXT NOT NULL DEFAULT 'default-post.png',
+    image_url TEXT NOT NULL DEFAULT '/images/default-post.png',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
