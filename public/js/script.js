@@ -7,6 +7,5 @@ fileInput.addEventListener('change', function () {
     reader.onload = () => {
         hiddenInput.value = reader.result; 
     };
-    console.log(hiddenInput.value)
     reader.readAsDataURL(this.files[0]);
 });
