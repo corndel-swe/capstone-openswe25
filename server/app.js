@@ -5,7 +5,6 @@ import commentRouter from '../routers/commentRouter.js'
 import { handleErrors } from '../errors/errorHandling.js';
 import session from 'express-session';
 import 'dotenv/config'
-import categoryRouter from '../routers/categoryRouter.js';
 
 const secretPassword = process.env.SECRET
 
@@ -31,7 +30,6 @@ app.set('view engine', 'ejs')
 app.use('/post', postRouter)
 app.use('/user', userRouter)
 app.use('/comment', commentRouter)
-app.use('/category', categoryRouter)
 
 app.use(handleErrors)
 
