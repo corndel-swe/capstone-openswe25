@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+    <section class="posts-section">
+        <% for(const post of posts) { %>
+            <div class="thumbnail">
+                <a href="<%= `/user/${post.user_id}` %>"><%= post.username %></a>
+                <a href="<%= `/post/${post.id}` %>" style="border: 2px solid;"">
+                    <img src="<%= post.image_url %>" alt="<%=`post ${post.id} thumbnail image` %>">
+                    <h1 class="title"><%= post.title %></h1>
+                    <p class="likes"><%= post.total_likes %> likes</p>
+                    <p class="date"><%= post.created_at %></p>
+                    <p class="category"><%= post.category_name %></p>
+                </a>
+            </div>
+        <% } %>
+    </section>
+</body> 
+</html>
