@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://kit.fontawesome.com/97f703eeb2.js" crossorigin="anonymous"></script>
+    <script src="/js/handler.js" defer></script>
     <title>YellowIt</title>
 </head>
 <body>
-    <header>
+    <!-- <header>
    
         <div class="hamburger-menu">
             <a href="/category">Categories</a>
             <a href="/user">Users </a>
             <% if (user) { %>
-            <a href="/post/new">Create Post</a>
+            <a href="/post/new">
+                <i class="fa-solid fa-pen"></i>
+                <span>Create a Post</span>
+            </a>
             <% } %>
 
 
@@ -32,4 +37,38 @@
     <% } %>
     </div>
 
+    </header> -->
+    <!-- NAVIGATION -->
+    <header class="global">
+        <div class="off-screen-menu">
+            <ul class="blur">
+                <a href="/category">Categories</a>
+                <a href="/user">Users </a>
+                <% if (user) { %>
+                <a href="/post/new">Create Post</a>
+                <% } %>
+            </ul>
+        </div>
+        <nav>
+            <div class="left ham-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <a href="/post/">YellowIt</a>
+            <div class="right">
+                <% if (user) { %>
+                <span>Welcome, <%= user.username %>! <a href="/user/logout">Logout</a></span>
+                <% } else { %>
+                <a href="/user/login">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Login</span>
+                </a>
+                <a href="/user/register">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span>Register</span>
+                </a>
+                <% } %>
+            </div>
+        </nav>
     </header>
