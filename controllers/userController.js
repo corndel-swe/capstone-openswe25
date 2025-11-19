@@ -126,7 +126,7 @@ export const loginUser = async (req, res, next) => {
         };
 
     
-        res.status(200).redirect("/user");
+        res.status(200).redirect("/post/");
 
 
     } catch (err) {

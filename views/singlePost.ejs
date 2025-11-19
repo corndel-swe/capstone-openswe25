@@ -7,9 +7,11 @@
         <a href="/post?user_id=<%= post.user_id%>"><h2><%= post.username%></h2></a>
         <h3><%= post.created_at%></h3>
         <h4>Likes: <%= post.total_likes%></h4>
-        <form action="<%=`/post/${post.id}/like`%>" method="POST">
-          <button type="submit">Like</button>
-        </form>
+        <% if (user) { %>
+          <form action="<%=`/post/${post.id}/like`%>" method="POST">
+            <button type="submit">Like</button>
+          </form>
+        <% } %>
         <%if(error && error.isLikeError){%>
         <p><%=error.message%></p>
         <%}%>
@@ -34,10 +36,12 @@
         <p><%= comment.username%></p>
       </article>
       <%}%>
+      <% if (user) { %>
       <form action="/comment/<%=post.id%>" method="POST">
         <textarea name="content" id="comment-content"></textarea>
         <button type="submit">Post comment</button>
       </form>
+      <% } %>
       <%if(error && error.isCommentError){%>
       <p><%=error.message%></p>
       <%}%>

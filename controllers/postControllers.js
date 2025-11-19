@@ -7,6 +7,7 @@ import PostLike from "../models/PostLike.js"
 import imageWriteFile from "../utils/imageWriteFIle.js"
 import Comment from "../models/Comment.js"
 import formatCreatedAt from "../utils/formatCreatedAt.js"
+import formatCategory from "../utils/formatCategory.js"
 import timeSince from "../utils/timeSince.js"
 
 export const getPostById = async (req, res, next) => {
@@ -34,9 +35,15 @@ export const getPostById = async (req, res, next) => {
     }
 }
 
-export const getAllPosts = async (req, res) => {
+export const getAllPosts = async (req, res, next) => {
     try {
-        const { order_by, sort_by, user_id, category_id } = req.query
+        const { sort, user_id, category_id } = req.query;
+        let order_by = ''
+        let sort_by = ''
+        if(sort){
+            order_by = sort.split('|')[0]
+            sort_by = sort.split('|')[1]
+        }
         // ORDER_BY QUERY
         const validOrderBys = ['DATE', 'LIKE'];
 
@@ -78,10 +85,17 @@ export const getAllPosts = async (req, res) => {
         };
 
         const posts = await Post.findAll(order_by, sort_by, user_id, category_id);
-        res.status(200).send({ posts });
+        const categories = await Category.findAllCategories();
+
+        for (const post of posts) {
+            post.created_at = formatCreatedAt(post.created_at);
+            post.category_name = formatCategory(post.category_name);
+        }
+        // res.status(200).send({ posts });
+        res.render('index.ejs', { posts, categories, users : allUsers});
     }
     catch (err) {
-        next(err)
+       next(err);
     };
 };
 

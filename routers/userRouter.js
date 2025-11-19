@@ -3,7 +3,7 @@ import { getUsers, createUser, loginUser, getRegisterPage, getLoginPage, logoutU
 import { redirectIfLoggedIn, requireAuth} from "../controllers/auth.js";
 
 const userRouter = Router()
-userRouter.get('/', requireAuth, getUsers)
+userRouter.get('/', getUsers)
 userRouter.get('/register', redirectIfLoggedIn, getRegisterPage)
 userRouter.get('/login', redirectIfLoggedIn, getLoginPage)
 userRouter.post('/register', createUser)
