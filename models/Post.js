@@ -21,6 +21,7 @@ class Post {
         return results[0]
     }
     static async findAll(order_by = 'DATE', sortBy = 'DESC', userId, categoryId) {
+        console.log(order_by, sortBy, userId, categoryId)
         const params = [];
         let whereClause = '';
         let orderClause = 'ORDER BY post.created_at';
