@@ -6,19 +6,23 @@
     <title>YellowIT</title>
   </head>
   <body>
+    <% if(!error || (error && error.isLikeError) || (error &&
+    error.isCommentError)){ %>
     <article class="single-post-container">
       <header>
         <h1><%= post.title%></h1>
-        <a href="/post?user_id=<%= post.id%>"><h2><%= post.username%></h2></a>
+        <a href="/post?user_id=<%= post.user_id%>"><h2><%= post.username%></h2></a>
         <h3><%= post.created_at%></h3>
         <h4>Likes: <%= post.total_likes%></h4>
         <form action="<%=`/post/${post.id}/like`%>" method="POST">
-          <input type="hidden" value="1" name="userId" />
           <button type="submit">Like</button>
         </form>
+        <%if(error && error.isLikeError){%>
+        <p><%=error.message%></p>
+        <%}%>
       </header>
       <img
-        src="/images/default-post.png"
+        src="<%=post.image_url%>"
         alt="Image for post"
         style="width: 400px"
       />
@@ -41,6 +45,12 @@
         <textarea name="content" id="comment-content"></textarea>
         <button type="submit">Post comment</button>
       </form>
+      <%if(error && error.isCommentError){%>
+      <p><%=error.message%></p>
+      <%}%>
     </section>
+    <% } else if(error && !error.isLikeError && !error.isCommentError){ %>
+    <p><%=`${error.code}: ${error.message}`%></p>
+    <%}%>
   </body>
 </html>
