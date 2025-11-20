@@ -1,7 +1,7 @@
 :root {
-    --text-color: #222121;
-    --link-color: #007bff;
-    --background-color: #fdf8e1;
+    --text-color: #fff;
+    --link-color: #fca311;
+    --background-color: #14213d;
 }
 
 /* GENERAL */
@@ -16,7 +16,7 @@ html {
 }
 
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: "Reddit Sans", sans-serif;
     background-color: var(--background-color);
     /* max-width: 1200px; */
     margin: 0 auto;
@@ -38,6 +38,7 @@ a {
     position: sticky;
     top: 0;
 } */
+
 /* NAVIGATION */
 nav {
     display: flex;
