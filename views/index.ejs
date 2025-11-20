@@ -1,6 +1,6 @@
 <%- include('partials/header') %>
     <nav class="filter">
-        <form action="/post/" method="GET">
+        <form action="/post/" method="GET" class="filters-form">
             <select name="category_id" id="category-selector" class="category_id">
                 <option value="" disabled selected>Select a Category</option>
                 <% for (const category of categories) { %>
@@ -20,10 +20,6 @@
                 <option value="DATE|DESC">Newest</option>
                 <option value="DATE|ASC">Oldest</option>
             </select>
-            <!-- <select name="sort_by" id="sort-selector" class="sort_by">
-                <option value="ASC">Ascending</option>
-                <option value="DESC" selected>Descending</option>
-            </select> -->
             <button type="submit">Go to Page</button>
             <button type="reset">Reset</button>
         </form>
