@@ -24,21 +24,41 @@
             <button type="reset">Reset</button>
         </form>
     </nav>
-    <section class="posts-section" style="display: flex; justify-content: auto; align-items: center;">
+    <section class="posts-section">
         <% if (!posts.length) { %>
         <p>No results</p>    
         <%} else {%>
         <% for (const post of posts) { %>
-            <div class="thumbnail" style="border: 2px solid;">
-                <a href="<%= `/post/?${Object.keys(post)[2]}=${post.user_id}` %>"><%= post.username %></a>
-                <a href="<%= `/post/${post.id}` %>" >
-                    <img src="<%= post.image_url %>" alt="<%=`post ${post.id} thumbnail image` %>" style="width: 400px">
-                </a>
-                <h1 class="title" style="text-transform: capitalize;"><%= post.title %></h1>
-                <p class="likes"><%= post.total_likes %> likes</p>
-                <p class="date"><%= post.created_at %></p>
-                <p class="category"><%= post.category_name %></p>
+            <a href="<%= `/post/${post.id}` %>">
+            <article class="blog-card">
+            <figure class="blog-card-photo-section">
+                
+                    <img src="<%= post.image_url %>" alt="<%=`post ${post.id} thumbnail image`  %>" class="blog-card-photo" />
+                
+            </figure>
+            <header class="blog-card-header">
+            <div class="categories-container">
+                <% for(const category of post.category_name.split(',')){%>
+                    
+                <div class="category-heading-span">
+                    <h1 class="category-heading"><%= category %></h1>
+                </div>
+                <%}%>
             </div>
+            <time class="published-date"><%= post.created_at %></time>
+            <h2 class="blog-card-title"><%= post.title %></h2>
+            </header>  
+            <p class="likes"><%= post.total_likes %> likes</p>
+            <footer class="blog-card-footer">
+        <img
+          src="<%= post.user_imageURL%>"
+          alt="profile picture"
+          class="profile-picture"
+        />
+        <figcaption class="account-name"><%= post.username%></figcaption>
+      </footer>
+           </article>
+           </a>
         <% }} %>
     </section>
     <script>
