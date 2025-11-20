@@ -59,7 +59,10 @@
             <a class="logo" href="/post/">YellowIt</a>
             <div class="right">
                 <% if (user) { %>
-                <span>Welcome, <%= user.username %>! <a href="/user/logout">Logout</a></span>
+                <a href="/user/logout">
+                    <i class="fa-solid fa-power-off"></i>
+                    <span>Welcome, <%= user.username %>!</span>
+                </a>
                 <% } else { %>
                 <a href="/user/login">
                     <i class="fa-solid fa-user"></i>
