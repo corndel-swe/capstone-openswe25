@@ -1,16 +1,49 @@
-body{
-    margin: 0;
-    background-color: #fdf8e1;
+body {
+  margin: 0;
+  background-color: #fdf8e1;
 }
 
-header{
+header {
+  background-color: #fdf8e1;
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 0;
+  border-bottom: black 2px solid;
+  position: sticky;
+  top: 0;
+}
 
-    background-color: #fdf8e1;
+form > * {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
+  width: 30%;
+}
+form label {
+  text-align: center;
+  display: block;
+}
+
+form input,
+form textarea,
+form button,
+form select {
+  padding: 5px;
+  border-radius: 14px;
+  display: block;
+  text-align: center;
+}
+form select {
+  background-color: white;
+  width:20%;
+  border: none;
+  padding: 5px 1em;
+}
+.filter{
     display: flex;
-    justify-content: space-around;
-    padding: 40px 0;
-    border-bottom: black 2px solid;
-    position: sticky;
-    top: 0;
+    justify-content: center;
+    width: 100%;
 }
-
+.filter form {
+    width: 100%;
+}
