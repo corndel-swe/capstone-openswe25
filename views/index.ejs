@@ -1,6 +1,6 @@
 <%- include('partials/header') %>
     <nav class="filter">
-        <form action="/post/" method="GET">
+        <form action="/post/" method="GET" class="filters-form">
             <select name="category_id" id="category-selector" class="category_id">
                 <option value="" disabled selected>Select a Category</option>
                 <% for (const category of categories) { %>
