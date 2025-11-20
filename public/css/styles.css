@@ -3,6 +3,7 @@
     --link-color: #fca311;
     --background-color: green;
     --hover-color: #ffc300;
+    --background-color: white;
 }
 
 /* GENERAL */
@@ -80,6 +81,12 @@ nav .left a {
     transition: .3s ease;
 }
 
+.blur > li {
+
+    padding-bottom: 18px;
+    
+}
+
 .off-screen-menu.active {
     left: 0;
 }
@@ -124,6 +131,11 @@ nav .left a {
 .ham-menu.active span:nth-child(3) {
     top: 50%;
     transform: translate(-50%, -50%)rotate(-45deg);
+}
+
+.logo{
+    font-size: 28px;
+    font-weight: 750;
 }
 /* INDEX */
 
@@ -307,3 +319,31 @@ form select {
         text-align: center;
     }
 }
+
+
+/* CATEGORIES AND USERS */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; /* spacing between cards */
+    padding: 1rem;
+}
+
+.card-grid a {
+    text-decoration: none;
+}
+
+.card {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    text-align: center;
+}
+ .card > img{
+    /* min-height: 120px; */
+    width: 300px;
+    /* max-height: 120px;
+    max-width: 120px; */
+ }

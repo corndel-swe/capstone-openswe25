@@ -82,7 +82,7 @@ export const createUser = async (req, res, next) => {
         const saltRounds = 10;
         const password_hash = await bcrypt.hash(password, saltRounds)
         const newUser = await User.createNewUser({ username, fullname, email, password_hash, imageURL })
-        res.status(201).send(newUser)
+        res.status(201).redirect('/user/login')
 
     } catch (err) {
         res.render('register', { msg: err.message, code: err.code})
