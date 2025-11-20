@@ -1,9 +1,8 @@
 :root {
-  --text-color: #fff;
-  --link-color: #fca311;
-  --background-color: green;
-  --hover-color: #ffc300;
-  --background-color: white;
+    --text-color: #232323;
+    --link-color: #fca311;
+    --hover-color: #ffc300;
+    --background-color: #fff;
 }
 
 /* GENERAL */
@@ -196,22 +195,27 @@ nav .left a {
   margin-bottom: 15px;
 }
 
+.login-section .group form .image-input {
+    border: none;
+    margin-right: 20px;
+}
+
 .login-section .group form textarea {
   resize: none;
 }
 
 .login-section .group form button {
-  background-color: var(--link-color);
-  color: var(--text-color);
-  height: 50px;
-  border-radius: 5px;
-  font-size: 1rem;
-  border: none;
-  cursor: pointer;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  justify-items: center;
+    background-color: var(--link-color);
+    color: var(--text-color);
+    height: 50px;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+.login-section .group form input:nth-child(3) {
+    border: none;
 }
 
 .login-section .group form button:hover {
@@ -225,7 +229,7 @@ form > * {
 form label {
   text-align: center;
   display: block;
-  font-size: 20px;
+  font-size: 1rem;
 }
 form {
   margin-left: auto;
@@ -285,6 +289,7 @@ form select {
 }
 .image-input {
   margin-left: 118px;
+  border: none;
 }
 .image-input:hover{
     border-color:none;
@@ -328,6 +333,7 @@ form select {
     text-align: center;
   }
 }
+
 
 /* CATEGORIES AND USERS */
 
