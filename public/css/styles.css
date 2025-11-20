@@ -195,6 +195,11 @@ nav .left a {
   margin-bottom: 15px;
 }
 
+.login-section .group form .image-input {
+    border: none;
+    margin-right: 20px;
+}
+
 .login-section .group form textarea {
   resize: none;
 }
@@ -209,7 +214,9 @@ nav .left a {
     cursor: pointer;
 }
 
-
+.login-section .group form input:nth-child(3) {
+    border: none;
+}
 
 .login-section .group form button:hover {
   filter: brightness(0.9);
@@ -274,6 +281,7 @@ form select {
 }
 .image-input {
   margin-left: 118px;
+  border: none;
 }
 #categories-drop-down {
   width: 40%;
