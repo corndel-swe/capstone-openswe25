@@ -10,46 +10,38 @@
             <input type="submit" value="submit">
         </form>
         
-        <% if (msg && code) { %>
+        <% if (msg) { %>
         <div class="error_message"> <%= `${msg}`%></div>    
         <% } %>
         
             
     </section> -->
-    <!-- SECTION 4: CONTACT -->
+    <!-- SECTION LOGIN -->
     <section id="login" class="login-section">
-        <h2>Contact</h2>
+        <h2>Login</h2>
         <div class="group">
             <div class="text">
-                Have a project in mind or just want to say hello? I'd love to hear from you.
-                <p>Feel free to send me a message!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae qui fuga dolores amet eius doloribus debitis laudantium laboriosam? Sint eius blanditiis, suscipit neque asperiores error.</p>
                 <div class="links">
-                    <a href="http//github.com/firefly-type-iv">
-                        <i class="fa-brands fa-github"></i>
-                        <span>Github</span>
-                    </a>
-                    <a href="http://www.linkedin.com/in/sinthuyan/">
-                        <i class="fa-brands fa-linkedin"></i>
-                        <span>Linkedin</span>
-                    </a>
-                    <a href="mailto:sinthuk10@gmail.com">
-                        <i class="fa-solid fa-envelope"></i>
-                        <span>Email</span>
-                    </a>
+                    <span>Don't have an account?</span><a href="/user/register">Register</a></span>
                 </div>
             </div>
-            <form action="/" method="post">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-                
+            <form action="/user/login" method="post">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" required placeholder="Enter Email Address">
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter Password">
                 
-                <label for="message">Message</label>
-                <textarea id="message" name="message" cols="30" rows="10"></textarea>
-                <button type="submit">Send Message</button>
+                <!-- <label for="message">Message</label>
+                <textarea id="message" name="message" cols="30" rows="10"></textarea> -->
+                <button type="submit" value="submit">Login</button>
+                <% if (msg) { %>
+                <div class="error_message"> <%= `${msg}`%></div>    
+                <% } %>
             </form>
         </div>
     </section>
+    </main>
  </body>
  </html>
