@@ -21,6 +21,8 @@ body {
     /* max-width: 1200px; */
     margin: 0 auto;
     text-transform: capitalize;
+    background-color: white
+
 }
 
 a {
@@ -28,15 +30,14 @@ a {
     color: var(--link-color)
 }
 
-/* header{
-
-    background-color: #fdf8e1;
-    display: flex;
-    justify-content: space-around;
-    padding: 40px 0;
-    border-bottom: black 2px solid;
-    position: sticky;
-    top: 0;
+/* header {
+  background-color: #fdf8e1;
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 0;
+  border-bottom: black 2px solid;
+  position: sticky;
+  top: 0;
 } */
 
 /* NAVIGATION */
@@ -218,4 +219,79 @@ nav .left a {
     nav .right span {
         display: none;
     }
+}form > * {
+  margin-bottom: 8px;
+  width: 30%;
+}
+form label {
+  text-align: center;
+  display: block;
+  font-size: 20px;
+}
+form{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form input,
+form textarea,
+form button,
+form select {
+  padding: 5px 15px;
+  border-radius: 14px;
+  display: block;
+  margin: 5px;
+  min-width: max-content;
+  font-family:  "Reddit Sans", sans-serif;
+  font-size: 13px;
+}
+form textarea {
+    width: 100%;
+    height: 230px;
+}
+form select {
+  background-color: white;
+  width:20%;
+  border: none;
+  padding: 5px 1em;
+}
+.filter{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.filters-form{
+    display: flex;
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+#login-button{
+    display: inline
+}
+.image-input {
+    margin-left: 118px;
+}
+#categories-drop-down{
+    width: 40%;
+    font-size: 15px;
+    height: 130px;
+    padding: 5px 10px;
+    overflow: hidden;
+    border: 2px solid black;
+}
+#selection-msg{
+    font-size: 15px;
+    font-weight: lighter;
+    width: max-content;
+}
+#create-post-button{
+    margin-top: 15px;
+    margin-bottom: 40px;
 }

@@ -1,5 +1,5 @@
 <%- include('partials/header')%>
-    <form id="postForm" action="/post/new" method="POST">
+    <form id="postForm" action="/post/new" method="POST" class="form-container">
       <input type="hidden" name="imageURL" id="imageURL" class="image-data" />
 
       <label for="title">Title</label>
@@ -9,12 +9,14 @@
       <textarea name="content" required></textarea>
 
       <label for="categories">Categories</label>
-      <select name="categories" multiple required>
+      <p id="selection-msg">Hold control to select multiple</p>
+
+      <select name="categories" id="categories-drop-down" multiple required>
         <% categories.forEach(category => { %>
         <option value="<%= category.id %>"><%= category.name %></option>
         <% }); %>
       </select>
-
+      
       <label for="image">Upload Image</label>
       <input
         type="file"
@@ -25,7 +27,7 @@
         required
       />
 
-      <button type="submit">Create Post</button>
+      <button type="submit" id="create-post-button">Create Post</button>
     </form>
     <% if(error){%>
     <p><%=`${error.code}: ${error.message}`%></p>
