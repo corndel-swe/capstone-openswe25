@@ -1,9 +1,8 @@
 :root {
-    --text-color: #fff;
+    --text-color: #232323;
     --link-color: #fca311;
-    --background-color: green;
     --hover-color: #ffc300;
-    --background-color: white;
+    --background-color: #fff;
 }
 
 /* GENERAL */
@@ -210,11 +209,9 @@ nav .left a {
     font-size: 1rem;
     border: none;
     cursor: pointer;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    justify-items: center;
 }
+
+
 
 .login-section .group form button:hover {
     filter: brightness(0.9);
@@ -229,7 +226,7 @@ form > * {
 form label {
   text-align: center;
   display: block;
-  font-size: 20px;
+  font-size: 1rem;
 }
 form{
     margin-left: auto;
@@ -319,6 +316,9 @@ form select {
         text-align: center;
     }
 }
+
+/* REG */
+.login
 
 
 /* CATEGORIES AND USERS */
