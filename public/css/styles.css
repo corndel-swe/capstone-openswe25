@@ -35,20 +35,17 @@ a {
   color: var(--link-color);
 }
 
-/* header {
-  background-color: #fdf8e1;
-  display: flex;
-  justify-content: space-around;
+ nav {
+  background-color: white;
   padding: 40px 0;
-  border-bottom: black 2px solid;
   position: sticky;
   top: 0;
-} */
+} 
 
 /* NAVIGATION */
 nav {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 25% 1fr 25%;
   align-items: center;
   height: 5rem;
   padding: 0 50px;
@@ -133,6 +130,7 @@ nav .left a {
 .logo {
   font-size: 28px;
   font-weight: 750;
+  text-align: center;
 }
 /* INDEX */
 
