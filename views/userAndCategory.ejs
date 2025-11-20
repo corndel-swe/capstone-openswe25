@@ -1,10 +1,15 @@
-<%- include('partials/header')%>
-    <% for(const card of cards) { %>
-     <a href="/post/?<%= content%>_id=<%=card.id%>"><div class="card">
-        <img src="<%= card.imageURL %>" alt="profile picture" style="width: 100px;">
-        <h1><%= card.title %></h1>
-     </div>
-     </a>
+<%- include('partials/header') %>
+
+<div class="card-grid">
+    <% for (const card of cards) { %>
+        <a href="/post/?<%= content %>_id=<%= card.id %>">
+            <div class="card">
+                <img src="<%=card.imageURL %>" alt="profile picture">
+                <h1><%= card.title %></h1>
+            </div>
+        </a>
     <% } %>
+</div>
+
 </body>
 </html>
