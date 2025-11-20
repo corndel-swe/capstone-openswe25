@@ -1,18 +1,55 @@
 <%- include('partials/header')%>
+    <!-- <section class="login-form">
 
-    <h1 class="login-title">Login</h1>
-    <form action="/user/login" method="post" enctype="application/x-www-form-urlencoded">
-
-    <input type="text" name="email" placeholder="Enter email address">
-    <input type="password" name="password" placeholder="Enter password">
-   
-    <input type="submit" value="submit">
-   </form>
-
-   <% if (msg && code) { %>
-   <div class="error_message"> <%= `${msg}`%></div>
-
-      <% } %>
-
+        <h1 class="login-title">Login</h1>
+        <form action="/user/login" method="post" >
+            
+            <input type="text" name="email" placeholder="Enter email address">
+            <input type="password" name="password" placeholder="Enter password">
+            
+            <input type="submit" value="submit">
+        </form>
+        
+        <% if (msg && code) { %>
+        <div class="error_message"> <%= `${msg}`%></div>    
+        <% } %>
+        
+            
+    </section> -->
+    <!-- SECTION 4: CONTACT -->
+    <section id="login" class="login-section">
+        <h2>Contact</h2>
+        <div class="group">
+            <div class="text">
+                Have a project in mind or just want to say hello? I'd love to hear from you.
+                <p>Feel free to send me a message!</p>
+                <div class="links">
+                    <a href="http//github.com/firefly-type-iv">
+                        <i class="fa-brands fa-github"></i>
+                        <span>Github</span>
+                    </a>
+                    <a href="http://www.linkedin.com/in/sinthuyan/">
+                        <i class="fa-brands fa-linkedin"></i>
+                        <span>Linkedin</span>
+                    </a>
+                    <a href="mailto:sinthuk10@gmail.com">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Email</span>
+                    </a>
+                </div>
+            </div>
+            <form action="/" method="post">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="message">Message</label>
+                <textarea id="message" name="message" cols="30" rows="10"></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
  </body>
  </html>
