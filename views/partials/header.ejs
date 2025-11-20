@@ -10,10 +10,10 @@
     <header>
    
         <div class="hamburger-menu">
-            <a href="/category">Categories</a>
-            <a href="/user">Users </a>
+            <a class="header-link" href="/category">Categories</a>
+            <a class="header-link" href="/user">Users </a>
             <% if (user) { %>
-            <a href="/post/new">Create Post</a>
+            <a class="header-link" href="/post/new">Create Post</a>
             <% } %>
 
 
@@ -27,8 +27,8 @@
         <span>Welcome, <%= user.username %>! <a href="/user/logout">Logout</a></span>
         
     <% } else { %>
-        <a href="/user/login">Login</a>
-        <a href="/user/register">Register</a>
+        <a class="header-link" href="/user/login">Login</a>
+        <a class="header-link" href="/user/register">Register</a>
     <% } %>
     </div>
 
