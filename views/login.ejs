@@ -1,18 +1,47 @@
 <%- include('partials/header')%>
-    <section class="form-container">
+    <!-- <section class="login-form">
+
         <h1 class="login-title">Login</h1>
-        <form action="/user/login" method="post" enctype="application/x-www-form-urlencoded">
+        <form action="/user/login" method="post" >
+            
+            <input type="text" name="email" placeholder="Enter email address">
+            <input type="password" name="password" placeholder="Enter password">
+            
+            <input type="submit" value="submit">
+        </form>
+        
+        <% if (msg) { %>
+        <div class="error_message"> <%= `${msg}`%></div>    
+        <% } %>
+        
+            
+    </section> -->
+    <!-- SECTION LOGIN -->
+    <section id="login" class="login-section">
+        <h2>Login</h2>
+        <div class="group">
+            <div class="text">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae qui fuga dolores amet eius doloribus debitis laudantium laboriosam? Sint eius blanditiis, suscipit neque asperiores error.</p>
+                <div class="links">
+                    <span>Don't have an account?</span><a href="/user/register">Register</a></span>
+                </div>
+            </div>
+            <form action="/user/login" method="post">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter Email Address">
 
-        <input type="text" name="email" placeholder="Enter email address">
-        <input type="password" name="password" placeholder="Enter password">
-   
-        <input type="submit" value="submit" id="login-button">
-    </form>
-
-    <% if (msg && code) { %>
-    <div class="error_message"> <%= `${msg}`%></div>
-
-      <% } %>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter Password">
+                
+                <!-- <label for="message">Message</label>
+                <textarea id="message" name="message" cols="30" rows="10"></textarea> -->
+                <button type="submit" value="submit">Login</button>
+                <% if (msg) { %>
+                <div class="error_message"> <%= `${msg}`%></div>    
+                <% } %>
+            </form>
+        </div>
     </section>
+    </main>
  </body>
  </html>
