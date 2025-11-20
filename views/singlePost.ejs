@@ -2,13 +2,23 @@
     <% if(!error || (error && error.isLikeError) || (error &&
     error.isCommentError)){ %>
     <article class="single-post-container">
-      <header>
-        <h1><%= post.title%></h1>
+      
+      <h1><%= post.title%></h1>
+      <div class="single-post-header-container">
+        <header>
+           <div class="categories-container">
+        <% for(let i = 0; i < post.category_name.split(',').length; i++){%>
+        <a href="/post?category_id=<%= post.category_id.split(',')[i]%>"
+          ><div class="category-heading-span">
+                    <p class="category-heading"><%= post.category_name.split(',')[i]%></p>
+                </div></a>
+        <%}%>
+        </div>
         <a href="/post?user_id=<%= post.user_id%>"><h2><%= post.username%></h2></a>
         <h3><%= post.created_at%></h3>
         <h4>Likes: <%= post.total_likes%></h4>
         <% if (user) { %>
-          <form action="<%=`/post/${post.id}/like`%>" method="POST">
+          <form action="<%=`/post/${post.id}/like`%>" method="POST" id="like-button">
             <button type="submit">Like</button>
           </form>
         <% } %>
@@ -19,16 +29,13 @@
       <img
         src="<%=post.image_url%>"
         alt="Image for post"
-        style="width: 400px"
       />
+      </div>
+      <div class="single-post-main">
       <p><%= post.content%></p>
-      <% for(let i = 0; i < post.category_name.split(',').length; i++){%>
-      <a href="/post?category_id=<%= post.category_id.split(',')[i]%>"
-        ><p><%= post.category_name.split(',')[i]%></p></a
-      >
-      <%}%>
+      </div>
     </article>
-    <section class="comments-section">
+    <section id="comments-section" class="comments-section">
       <% for(const comment of comments){ %>
       <article class="comment-container">
         <p><%= comment.content%></p>
@@ -39,7 +46,7 @@
       <% if (user) { %>
       <form action="/comment/<%=post.id%>" method="POST">
         <textarea name="content" id="comment-content"></textarea>
-        <button type="submit">Post comment</button>
+        <button id="post-comment-button">Post comment</button>
       </form>
       <% } %>
       <%if(error && error.isCommentError){%>
@@ -49,5 +56,51 @@
     <% } else if(error && !error.isLikeError && !error.isCommentError){ %>
     <p><%=`${error.code}: ${error.message}`%></p>
     <%}%>
+   <script>
+    const form = document.querySelector("#comments-section form");
+    if(form){
+    form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const textarea = document.getElementById("comment-content");
+    const commentsSection = document.getElementById("comments-section");
+
+    const content = textarea.value.trim();
+    if (!content) return;
+
+    const postId = form.action.split("/").pop();
+
+    const res = await fetch(`/comment/${postId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", 
+                  "X-Requested-With": "fetch" },
+      body: JSON.stringify({ content })
+    });
+
+    if (!res.ok) {
+      alert("Error posting comment.");
+      return;
+    }
+
+    const data = await res.json();        
+    const newComment = data.newComment; 
+
+    
+    const article = document.createElement("article");
+    article.classList.add("comment-container");
+    article.innerHTML = `
+      <p>${newComment.content}</p>
+      <p>${newComment.created_at}</p>
+      <p>${newComment.username}</p>
+    `;
+
+    commentsSection.insertBefore(article, form); 
+
+    textarea.value = "";
+  })
+}
+</script>
+
+
   </body>
 </html>

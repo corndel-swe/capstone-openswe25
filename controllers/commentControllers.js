@@ -64,9 +64,12 @@ export const postNewComment = async (req, res, next) => {
             throw new AppError('User does not exist', 404)
         }
 
-        await Comment.addComment(id, userId, content)
-
-        res.redirect(`/post/${id}`)
+        const newComment = await Comment.addComment(id, userId, content)
+        const isFetch = req.headers["x-requested-with"] === "fetch";
+        newComment[0].created_at = timeSince(newComment[0].created_at)
+        newComment[0].username = validUser[0].username
+        
+        isFetch ? res.status(201).send({newComment : newComment[0]}) : res.redirect(`/post/${id}`)
     }
 
     catch (err) {
