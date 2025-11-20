@@ -14,7 +14,7 @@
   "name": "capstone-openswe25",
   "version": "1.0.0",
   "description": "hi",
-  "main": "index.js",
+  "main": "index.ejs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "db:reset": "sqlite3 db/db.sqlite < db/migrations/1-reset.sql",
