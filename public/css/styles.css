@@ -367,7 +367,7 @@ form select {
 .card > img {
   width: 100%;
   max-width: 300px;
-  height: auto;
+  height: 274px;
   object-fit: cover;
 }
 
