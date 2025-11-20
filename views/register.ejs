@@ -1,5 +1,5 @@
 <%- include('partials/header')%>
-
+<!-- 
     <h1 class="register-header">Register</h1>
     <form action="/user/register" method="post" enctype="application/x-www-form-urlencoded">
     <input type="text" name="email" placeholder="Enter email address">
@@ -18,8 +18,45 @@
    <% if (msg && code) { %>
    <div class="error_message"> <%= `${msg}`%></div>
 
-      <% } %>
+      <% } %> -->
 
+   <!-- SECTION REGISTER -->
+   <section id="register" class="login-section">
+      <h2>Create an Account</h2>
+        <div class="group">
+            <div class="text">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae qui fuga dolores amet eius doloribus debitis laudantium laboriosam? Sint eius blanditiis, suscipit neque asperiores error.</p>
+                <div class="links">
+                    <span>Already have an account?</span><a href="/user/login">Sign in</a></span>
+                </div>
+            </div>
+            <form action="/user/register" method="post">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter Email Address">
+
+                <label for="fullname">Name</label>
+                <input type="text" id="fullname" name="fullname" required placeholder="Enter Full Name">
+
+                <label for="username">Username</label> 
+                <input type="text" id="username" name="username" placeholder="Enter Username">
+                
+                <label for="profilePicture" class="file-label">Upload Picture</label>
+                <input type="file" id="profilePicture" accept="image/*" class="image-input">
+                <input type="hidden" name="imageBase64" id="imageBase64">
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter Password">
+
+                <input type="password" id="confirm_password"name="confirm_password" placeholder="Re-enter password">
+            
+                <button type="submit" value="submit">Register</button>
+                <% if (msg) { %>
+                <div class="error_message"> <%= `${msg}`%></div>    
+                <% } %>
+            </form>
+        </div>
+   </section>
+   </main>
    <script src="/js/script.js"></script>
  </body>
  </html>
