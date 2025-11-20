@@ -347,3 +347,125 @@ form select {
     /* max-height: 120px;
     max-width: 120px; */
  }
+
+
+
+
+
+
+
+
+
+
+
+.posts-section {
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 97%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
+}
+.blog-card {
+  font-family: "figtree", sans-serif;
+  background-color: hsl(0, 0%, 100%);
+  width: 200px;
+  height: 300px;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid black;
+  box-shadow: black 8px 8px;
+  margin: 20px;
+}
+.blog-card:hover{
+    cursor: pointer;
+}
+.blog-card:hover .blog-card-title{
+    color: hsl(47, 88%, 63%);
+}
+.blog-card-photo {
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  height: 105px;
+}
+.blog-card-photo-section {
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 10px;
+}
+.category-heading {
+  font-size: 8px;
+  line-height: 1.5;
+  color: hsl(0, 0%, 7%);
+  font-weight: 800;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+.category-heading-span {
+  width: max-content;
+  height: 20px;
+  background-color: hsl(47, 88%, 63%);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-bottom: 3px;
+  margin-right: 3px;
+}
+.published-date {
+  color: hsl(0, 0%, 7%);
+  font-weight: 500;
+  line-height: 1.5;
+  font-size: 8px;
+}
+.blog-card-title {
+  color: hsl(0, 0%, 7%);
+  font-weight: 800;
+  line-height: 1.5;
+  font-size: 15px;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.blog-card-footer {
+  display: flex;
+  align-items: center;
+  bottom: 0px;
+  padding-bottom: 18px;
+}
+.profile-picture {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+.account-name {
+  display: inline;
+  color: hsl(0, 0%, 7%);
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 1.5;
+  text-wrap: wrap;
+  margin-top: 5px;
+}
+.likes {
+  display: block;
+  color: hsl(0, 0%, 7%);
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.blog-card-header {
+  height: 50px;
+  margin-bottom: 45px;
+}
+.categories-container{
+  display: flex;
+}

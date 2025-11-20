@@ -52,6 +52,7 @@ class Post {
             post.user_id,
             post.title,
             user.username,
+            user.imageURL AS user_imageURL,
             GROUP_CONCAT (DISTINCT post_category.category_id) AS category_id,
             GROUP_CONCAT (DISTINCT category.name) AS category_name,
             (
